@@ -1,0 +1,30 @@
+# Follow instruction in https://pub.dev/packages/flutter_flavorizr
+
+flavors:
+
+  develop:
+    app:
+      name: "[DEV] Base Core"
+      icon: "assets/app/ic_launcher.png"
+    android:
+      applicationId: "com.example.base_core.dev"
+    ios:
+      bundleId: "com.example.base_core.dev"
+
+  uat:
+    app:
+      name: "[UAT] Base Core"
+      icon: "assets/app/ic_launcher.png"
+    android:
+      applicationId: "com.example.base_core.dev"
+    ios:
+      bundleId: "com.example.base_core.dev"
+
+  product:
+    app:
+      name: "Base Core"
+      icon: "assets/app/ic_launcher.png"
+    android:
+      applicationId: "com.example.base_core"
+    ios:
+      bundleId: "com.example.base_core"
