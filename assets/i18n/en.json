@@ -1,0 +1,20 @@
+{
+  "appName": "Base Core",
+  "error_system": {
+    "duplicate_email": "Email already has been registered.",
+    "bad_request": "Invalid request.",
+    "unauthorized": "Unauthorized access.",
+    "forbidden": "Access denied.",
+    "not_found": "Resource not found.",
+    "internal_server_error": "Internal server error.",
+    "bad_gateway": "Bad gateway.",
+    "unknown_error": "Unknown error.",
+    "error_occurred": "An error occurred",
+    "unexpected_error": "Unknown error",
+    "cancel_request": "Request was cancelled",
+    "connection_time_out": "Connection timed out",
+    "receive_time_out": "Receive timeout in connection with API server",
+    "send_time_out": "Send timeout in connection with API server",
+    "socket_exception": "Socket exception occurred"
+  }
+}

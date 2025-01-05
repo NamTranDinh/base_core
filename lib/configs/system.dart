@@ -1,0 +1,44 @@
+import 'dart:async';
+
+import 'package:base_core/flavors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+class SystemConfiguration {
+  static Future<void> initEnv() async {
+    F.appFlavor = _getFlavor();
+    await dotenv.load(fileName: 'environments/.env');
+  }
+
+  static Flavor _getFlavor() {
+    final f = dotenv.get('FLAVOR');
+    if (f == Flavor.develop.name) {
+      return Flavor.develop;
+    } else if (f == Flavor.uat.name) {
+      return Flavor.uat;
+    } else if (f == Flavor.product.name) {
+      return Flavor.product;
+    }
+
+    return Flavor.product;
+  }
+
+  static const header = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+}
+
+class LanguageManager {
+  factory LanguageManager() {
+    return _instance;
+  }
+
+  LanguageManager._init();
+
+  static final LanguageManager _instance = LanguageManager._init();
+
+  final enLocale = const Locale('en', 'US');
+
+  List<Locale> get supportedLocales => [enLocale];
+}

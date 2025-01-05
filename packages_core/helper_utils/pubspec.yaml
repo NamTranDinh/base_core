@@ -1,0 +1,30 @@
+name: helper_utils
+description: Function helper
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  dio: any
+  intl: any
+  mime: any
+  path: any
+  file_picker: any
+  path_provider: any
+  url_launcher: any
+  flutter_bloc: any
+  equatable: any
+  timezone: any
+  flutter_animate: any
+  video_player: any
+  photo_view: any
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
