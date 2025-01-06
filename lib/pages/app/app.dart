@@ -1,10 +1,9 @@
 import 'package:base_core/blocs/app/app_cubit.dart';
 import 'package:base_core/commons/app_components/loadings/loading_overlay.dart';
 import 'package:base_core/commons/app_components/widgets/page_not_found.dart';
-import 'package:base_core/configs/system.dart';
 import 'package:base_core/cores/app_theme.dart';
-import 'package:base_core/di.dart';
-import 'package:base_core/routes/app_router.dart';
+import 'package:base_core/di/app_data.dart';
+import 'package:base_core/di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -20,22 +19,26 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => getIt<AppCubit>()),
       ],
-      child: MaterialApp.router(
-        routerConfig: getIt<AppRouter>().config(),
-        locale: LanguageManager().enLocale,
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightAppTheme(context),
-        darkTheme: AppTheme.darkAppTheme(context),
-        themeMode: ThemeMode.light,
-        builder: (context, child) {
-          return LoaderOverlay(
-            overlayWidgetBuilder: (_) {
-              return const Material(
-                color: Colors.transparent,
-                child: LoadingOverlay(),
-              );
-            },
-            child: Material(child: child ?? const PageNotFound()),
+      child: BlocBuilder<AppCubit, AppState>(
+        builder: (context, state) {
+          return MyAppTheme(
+            data: AppThemeData.system(context),
+            child: MaterialApp.router(
+              locale: state.locale,
+              routerConfig: AppData.of(context).router.config(),
+              debugShowCheckedModeBanner: false,
+              builder: (context, child) {
+                return LoaderOverlay(
+                  overlayWidgetBuilder: (_) {
+                    return const Material(
+                      color: Colors.transparent,
+                      child: LoadingOverlay(),
+                    );
+                  },
+                  child: Material(child: child ?? const PageNotFound()),
+                );
+              },
+            ),
           );
         },
       ),

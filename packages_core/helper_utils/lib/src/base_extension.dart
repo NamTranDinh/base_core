@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart' as path;
 
 extension ContextExtension on BuildContext {
+  Brightness get brightness => MediaQuery.of(this).platformBrightness;
+
   ThemeData get theme => Theme.of(this);
 
   TextTheme get textTheme => Theme.of(this).textTheme;
@@ -21,6 +24,14 @@ extension ContextExtension on BuildContext {
   Brightness get appBrightness => MediaQuery.of(this).platformBrightness;
 
   TextScaler get textScaleFactor => MediaQuery.of(this).textScaler;
+
+  double get heightDevice => mediaQuery.size.height;
+
+  double get widthDevice => mediaQuery.size.width;
+
+  double dynamicWidth({required double val}) => widthDevice * val;
+
+  double dynamicHeight({required double val}) => heightDevice * val;
 }
 
 extension AppLocalizationsExtension on BuildContext {
@@ -126,54 +137,11 @@ extension IndexedMap<K, V> on Map<K, V> {
   }
 }
 
-extension MediaQueryExtension on BuildContext {
-  double get heightDevice => mediaQuery.size.height;
-
-  double get widthDevice => mediaQuery.size.width;
-
-  double dynamicWidth({required double val}) => widthDevice * val;
-
-  double dynamicHeight({required double val}) => heightDevice * val;
-}
-
-extension DurationExtension on BuildContext {
-  Duration get durationLow1x => const Duration(milliseconds: 100);
-
-  Duration get durationLow2x => const Duration(milliseconds: 250);
-
-  Duration get durationLow3x => const Duration(milliseconds: 500);
-
-  Duration get durationLow4x => const Duration(milliseconds: 750);
-
-  Duration get durationNormal1x => const Duration(milliseconds: 1000);
-
-  Duration get durationNormal2x => const Duration(milliseconds: 1250);
-
-  Duration get durationNormal3x => const Duration(milliseconds: 1500);
-
-  Duration get durationNormal4x => const Duration(milliseconds: 1750);
-
-  Duration get durationSlow1x => const Duration(milliseconds: 2000);
-
-  Duration get durationSlow2x => const Duration(milliseconds: 2250);
-
-  Duration get durationSlow3x => const Duration(milliseconds: 2500);
-
-  Duration get durationSlow4x => const Duration(milliseconds: 2750);
-
-  Duration get durationVerySlow1x => const Duration(milliseconds: 3000);
-
-  Duration get durationVerySlow2x => const Duration(milliseconds: 3250);
-
-  Duration get durationVerySlow3x => const Duration(milliseconds: 3500);
-
-  Duration get durationVerySlow4x => const Duration(milliseconds: 3750);
-
-  Duration get durationTooSlow1x => const Duration(milliseconds: 4000);
-
-  Duration get durationTooSlow2x => const Duration(milliseconds: 4250);
-
-  Duration get durationTooSlow3x => const Duration(milliseconds: 4500);
-
-  Duration get durationTooSlow4x => const Duration(milliseconds: 4750);
+extension CubitExt<T> on Cubit<T> {
+  void safeEmit(T state) {
+    if (!isClosed) {
+      // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+      emit(state);
+    }
+  }
 }

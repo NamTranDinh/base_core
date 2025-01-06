@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:base_core/configs/system.dart';
-import 'package:base_core/di.dart';
+import 'package:base_core/di/di.dart';
 import 'package:base_core/pages/app/app.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:chucker_flutter/chucker_flutter.dart';
