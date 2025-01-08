@@ -43,7 +43,7 @@ class ColorUtils {
   ///
   ///
   static String shadeColor(String hex, double percent) {
-    var bC = basicColorsFromHex(hex);
+    final bC = basicColorsFromHex(hex);
 
     var R = (bC[BASIC_COLOR_RED]! * (100 + percent) / 100).round();
     var G = (bC[BASIC_COLOR_GREEN]! * (100 + percent) / 100).round();
@@ -67,11 +67,17 @@ class ColorUtils {
       B = 0;
     }
 
-    var RR = ((R.toRadixString(16).length == 1) ? '0' + R.toRadixString(16) : R.toRadixString(16));
-    var GG = ((G.toRadixString(16).length == 1) ? '0' + G.toRadixString(16) : G.toRadixString(16));
-    var BB = ((B.toRadixString(16).length == 1) ? '0' + B.toRadixString(16) : B.toRadixString(16));
+    final RR = ((R.toRadixString(16).length == 1)
+        ? '0${R.toRadixString(16)}'
+        : R.toRadixString(16));
+    final GG = ((G.toRadixString(16).length == 1)
+        ? '0${G.toRadixString(16)}'
+        : G.toRadixString(16));
+    final BB = ((B.toRadixString(16).length == 1)
+        ? '0${B.toRadixString(16)}'
+        : B.toRadixString(16));
 
-    return '#' + RR + GG + BB;
+    return '#$RR$GG$BB';
   }
 
   ///
@@ -81,7 +87,7 @@ class ColorUtils {
   ///
   static String fillUpHex(String hex) {
     if (!hex.startsWith('#')) {
-      hex = '#' + hex;
+      hex = '#$hex';
     }
 
     if (hex.length == 7) {
@@ -89,14 +95,14 @@ class ColorUtils {
     }
 
     var filledUp = '';
-    hex.runes.forEach((r) {
-      var char = String.fromCharCode(r);
+    for (final r in hex.runes) {
+      final char = String.fromCharCode(r);
       if (char == '#') {
         filledUp = filledUp + char;
       } else {
         filledUp = filledUp + char + char;
       }
-    });
+    }
     return filledUp;
   }
 
@@ -104,18 +110,27 @@ class ColorUtils {
   /// Returns true or false if the calculated relative luminance from the given [hex] is less than 0.5.
   ///
   static bool isDark(String hex) {
-    var bC = basicColorsFromHex(hex);
+    final bC = basicColorsFromHex(hex);
 
-    return calculateRelativeLuminance(bC[BASIC_COLOR_RED]!, bC[BASIC_COLOR_GREEN]!, bC[BASIC_COLOR_BLUE]!) < 0.5;
+    return calculateRelativeLuminance(
+          bC[BASIC_COLOR_RED]!,
+          bC[BASIC_COLOR_GREEN]!,
+          bC[BASIC_COLOR_BLUE]!,
+        ) <
+        0.5;
   }
 
   ///
   /// Calculates the limunance for the given [hex] color and returns black as hex for bright colors, white as hex for dark colors.
   ///
   static String contrastColor(String hex) {
-    var bC = basicColorsFromHex(hex);
+    final bC = basicColorsFromHex(hex);
 
-    var luminance = calculateRelativeLuminance(bC[BASIC_COLOR_RED]!, bC[BASIC_COLOR_GREEN]!, bC[BASIC_COLOR_BLUE]!);
+    final luminance = calculateRelativeLuminance(
+      bC[BASIC_COLOR_RED]!,
+      bC[BASIC_COLOR_GREEN]!,
+      bC[BASIC_COLOR_BLUE]!,
+    );
     return luminance > 0.5 ? HEX_BLACK : HEX_WHITE;
   }
 
@@ -131,12 +146,12 @@ class ColorUtils {
     hex = fillUpHex(hex);
 
     if (!hex.startsWith('#')) {
-      hex = '#' + hex;
+      hex = '#$hex';
     }
 
-    var R = int.parse(hex.substring(1, 3), radix: 16);
-    var G = int.parse(hex.substring(3, 5), radix: 16);
-    var B = int.parse(hex.substring(5, 7), radix: 16);
+    final R = int.parse(hex.substring(1, 3), radix: 16);
+    final G = int.parse(hex.substring(3, 5), radix: 16);
+    final B = int.parse(hex.substring(5, 7), radix: 16);
     return {BASIC_COLOR_RED: R, BASIC_COLOR_GREEN: G, BASIC_COLOR_BLUE: B};
   }
 
@@ -145,8 +160,16 @@ class ColorUtils {
   ///
   /// The returned value is between 0 and 1 with the given [decimals].
   ///
-  static double calculateRelativeLuminance(int red, int green, int blue, {int decimals = 2}) {
-    return MathUtils.round((0.299 * red + 0.587 * green + 0.114 * blue) / 255, decimals);
+  static double calculateRelativeLuminance(
+    int red,
+    int green,
+    int blue, {
+    int decimals = 2,
+  }) {
+    return MathUtils.round(
+      (0.299 * red + 0.587 * green + 0.114 * blue) / 255,
+      decimals,
+    );
   }
 
   ///
@@ -158,10 +181,14 @@ class ColorUtils {
   /// The specified [percentage] value defines the color spacing of the individual colors. As a default,
   /// each color is 15 percent lighter or darker than the previous one.
   ///
-  static List<String> swatchColor(String hex, {double percentage = 15, int amount = 5}) {
+  static List<String> swatchColor(
+    String hex, {
+    double percentage = 15,
+    int amount = 5,
+  }) {
     hex = fillUpHex(hex);
 
-    var colors = <String>[];
+    final colors = <String>[];
     for (var i = 1; i <= amount; i++) {
       colors.add(shadeColor(hex, (6 - i) * percentage));
     }
@@ -179,12 +206,14 @@ class ColorUtils {
   /// Returns Inverted String Color.
   ///
   static String invertColor(String color) {
-    var invertedColor = <String>[];
+    final invertedColor = <String>[];
     for (var i = 0; i < color.length; i++) {
       if (color[i].startsWith('#')) {
         invertedColor.add('#');
       } else {
-        invertedColor.add(((~int.parse('0x${color[i]}')).toUnsigned(4)).toRadixString(16));
+        invertedColor.add(
+          (~int.parse('0x${color[i]}')).toUnsigned(4).toRadixString(16),
+        );
       }
     }
     return invertedColor.join();

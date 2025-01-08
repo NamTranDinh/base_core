@@ -3,30 +3,32 @@ import 'package:helper_utils/helper_utils.dart';
 import 'package:toastification/toastification.dart';
 
 class ToastUtil {
-  static void showToast({
+  static void showToasts({
     required BuildContext context,
-    Widget? title,
+    required Widget title,
     Color? backgroundColor,
     Alignment? alignment,
-    required void Function(ToastificationItem) onTap,
+    required void Function(ToastificationItem item) onTap,
   }) {
     toastification.show(
-      callbacks: ToastificationCallbacks(onTap: onTap),
-      showIcon: false,
       context: context,
       title: title,
+      showIcon: false,
+      dragToClose: true,
       closeOnClick: true,
-      margin: const EdgeInsets.only(right: 16, bottom: 8),
-      animationDuration: const Duration(milliseconds: 350),
-      autoCloseDuration: const Duration(seconds: 5),
       showProgressBar: false,
-      backgroundColor: backgroundColor,
-      borderSide: BorderSide.none,
       alignment: alignment,
+      borderSide: BorderSide.none,
+      backgroundColor: backgroundColor?.withAlpha(235),
+      style: ToastificationStyle.flat,
+      callbacks: ToastificationCallbacks(onTap: onTap),
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      animationDuration: const Duration(milliseconds: 250),
+      autoCloseDuration: const Duration(seconds: 3),
     );
   }
 
-  static void show({
+  static void showToast({
     required BuildContext context,
     Widget? title,
     Color? backgroundColor,
@@ -39,7 +41,7 @@ class ToastUtil {
           color: backgroundColor,
           borderRadius: BorderRadius.circular(8),
         ),
-        width: 350,
+        margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +54,8 @@ class ToastUtil {
           ],
         ),
       ),
-      gravity: gravity ?? ToastGravity.TOP_RIGHT,
-      toastDuration: const Duration(seconds: 5),
+      gravity: gravity ?? ToastGravity.TOP,
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

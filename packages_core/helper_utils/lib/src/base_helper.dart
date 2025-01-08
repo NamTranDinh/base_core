@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:helper_utils/src/base_enum.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:video_player/video_player.dart';
 
 class AppHelper {
@@ -24,76 +25,6 @@ class AppHelper {
     return startDate.year == endDate.year &&
         startDate.month == endDate.month &&
         startDate.day == endDate.day;
-  }
-
-  bool isNumeric(String s) {
-    return double.tryParse(s) != null;
-  }
-
-  static bool checkFormatDateOfBirth(String value) {
-    final regularExpression =
-        RegExp(r'^(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9])-[0-9]{4}$');
-    return regularExpression.hasMatch(value);
-  }
-
-  static bool checkFormatTimeWorking(String value) {
-    final regularExpression = RegExp(r'^(1[0-2]|0[1-9])-[0-9]{4}$');
-    return regularExpression.hasMatch(value);
-  }
-
-  static bool checkFormatEmail(String value) {
-    final regularExpression = RegExp(r'^[A-Za-z0-9+_.-]+@(.+)$');
-    return regularExpression.hasMatch(value);
-  }
-
-  static String convertDate(String date) {
-    if (date == '' || date.trim() == '') {
-      return '';
-    } else {
-      final time = DateFormat('dd/MM/yyyy').parse(date);
-      final timeConverted = DateFormat('yyyy-MM-dd').format(time);
-      return timeConverted;
-    }
-  }
-
-  static DateTime? stringToDate(String date) {
-    if (date.isEmpty) {
-      return null;
-    } else {
-      final timeConverted = DateFormat('yyyy-MM-dd').parse(date);
-      return timeConverted;
-    }
-  }
-
-  static String convertDateReverse(String date) {
-    if (date == '' || date.trim() == '') {
-      return '';
-    } else {
-      final time = DateFormat('yyyy-MM-dd').parse(date);
-      final timeConverted = DateFormat('dd/MM/yyyy').format(time);
-      return timeConverted;
-    }
-  }
-
-  static String convertDateTimeToDate(String datetime) {
-    try {
-      final originalDate = DateTime.parse(datetime);
-      final formattedDate = DateFormat('dd/MM/yyyy').format(originalDate);
-      return formattedDate;
-    } catch (e) {
-      print('Error occurred while parsing the date: $e');
-      return '';
-    }
-  }
-
-  static String convertDateMMYYYY(String date) {
-    if (date == '' || date.trim() == '') {
-      return '';
-    } else {
-      final time = DateFormat('MM-yyyy').parse(date);
-      final timeConverted = DateFormat('yyyy-MM').format(time);
-      return '$timeConverted-01';
-    }
   }
 
   Future<Size> getImageDimension({required String url}) {
@@ -226,8 +157,8 @@ class AppHelper {
   static Future<void> makeCallExtension(String contactNumber) async {
     final Uri _phoneUri = Uri(scheme: "tel", path: contactNumber);
     try {
-      if (await UrlLauncher.canLaunchUrl(Uri.parse(_phoneUri.toString())))
-        await UrlLauncher.launchUrl(Uri.parse(_phoneUri.toString()));
+      if (await url_launcher.canLaunchUrl(Uri.parse(_phoneUri.toString())))
+        await url_launcher.launchUrl(Uri.parse(_phoneUri.toString()));
     } catch (error) {
       throw ("Cannot dial");
     }
@@ -236,8 +167,8 @@ class AppHelper {
   static Future<void> sendMessageExtension(String contactNumber) async {
     final Uri _phoneUri = Uri(scheme: "sms", path: contactNumber);
     try {
-      if (await UrlLauncher.canLaunchUrl(Uri.parse(_phoneUri.toString())))
-        await UrlLauncher.launchUrl(Uri.parse(_phoneUri.toString()));
+      if (await url_launcher.canLaunchUrl(Uri.parse(_phoneUri.toString())))
+        await url_launcher.launchUrl(Uri.parse(_phoneUri.toString()));
     } catch (error) {
       throw ("Cannot dial");
     }
@@ -249,8 +180,8 @@ class AppHelper {
       path: contactNumber,
     );
     try {
-      if (await UrlLauncher.canLaunchUrl(Uri.parse(_phoneUri.toString())))
-        await UrlLauncher.launchUrl(Uri.parse(_phoneUri.toString()));
+      if (await url_launcher.canLaunchUrl(Uri.parse(_phoneUri.toString())))
+        await url_launcher.launchUrl(Uri.parse(_phoneUri.toString()));
     } catch (error) {
       throw ("Cannot dial");
     }
@@ -304,7 +235,7 @@ class AppHelper {
   }
 
   static void jumpToPosition(ScrollController controller, double position) {
-    if(controller.hasClients) {
+    if (controller.hasClients) {
       final clampedPosition = position.clamp(
         0,
         controller.position.maxScrollExtent,

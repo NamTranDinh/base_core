@@ -22,7 +22,7 @@ class App extends StatelessWidget {
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           return MyAppTheme(
-            appThemeData: AppThemeData.system(context),
+            appThemeData: AppThemeData.light(),
             child: MaterialApp.router(
               locale: state.locale,
               theme: state.appThemeData.themeData,

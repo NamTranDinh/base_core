@@ -23,6 +23,22 @@ dependencies:
   flutter_animate: any
   video_player: any
   photo_view: any
+  http: any
+
+plugin:
+  platforms:
+    web:
+      pluginClass: DownloadHelper
+      fileName: web_download_helper.dart
+    android:
+      package: helper_utils
+      pluginClass: DownloadHelper
+      fileName: app_download_helper.dart
+    ios:
+      package: helper_utils
+      pluginClass: DownloadHelper
+      fileName: app_download_helper.dart
+
 
 
 dev_dependencies:

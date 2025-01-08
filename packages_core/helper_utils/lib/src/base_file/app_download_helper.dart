@@ -4,14 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:helper_utils/src/base_file/file_entity.dart';
 import 'package:path_provider/path_provider.dart';
 
-class DownloadFileHelper implements DownloadFile {
-  factory DownloadFileHelper() {
+class DownloadHelper implements DownloadFile {
+  factory DownloadHelper() {
     return _instance;
   }
 
-  DownloadFileHelper._internal();
+  DownloadHelper._internal();
 
-  static final DownloadFileHelper _instance = DownloadFileHelper._internal();
+  static final DownloadHelper _instance = DownloadHelper._internal();
 
   @override
   Future<Directory> getDocumentDirectorySystem() async {
@@ -31,14 +31,14 @@ class DownloadFileHelper implements DownloadFile {
         options: Options(
           responseType: ResponseType.bytes,
           followRedirects: false,
-          receiveTimeout: Duration(seconds: 0),
+          receiveTimeout: Duration.zero,
         ),
       );
 
       if (response.statusCode == 200) {
         await file.create(recursive: true);
-        final raf = file.openSync(mode: FileMode.write);
-        raf.writeFromSync(response.data);
+        final raf = file.openSync(mode: FileMode.write)
+          ..writeFromSync(response.data);
         await raf.close();
         return file;
       } else {
@@ -57,7 +57,7 @@ class DownloadFileHelper implements DownloadFile {
     if (!await dir.exists()) {
       await dir.create();
     }
-    return '${dir.path}/${file.hashCode.toString()}${getExtension(file.url ?? '')}';
+    return '${dir.path}/${file.hashCode}${getExtension(file.url ?? '')}';
   }
 
   String getExtension(String url) {

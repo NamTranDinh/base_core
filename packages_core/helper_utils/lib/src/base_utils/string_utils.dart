@@ -6,10 +6,12 @@ import 'dart:math';
 /// Helper class for String operations
 ///
 class StringUtils {
-  static AsciiCodec asciiCodec = AsciiCodec();
+  static AsciiCodec asciiCodec = const AsciiCodec();
 
-  static final RegExp _ipv4Maybe = RegExp(r'^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$');
-  static final RegExp _ipv6 = RegExp(r'^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$');
+  static final RegExp _ipv4Maybe =
+      RegExp(r'^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$');
+  static final RegExp _ipv6 =
+      RegExp(r'^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$');
 
   ///
   /// Returns the given string or the default string if the given string is null
@@ -21,7 +23,9 @@ class StringUtils {
   ///
   /// Checks if the given String [s] is null or empty
   ///
-  static bool isNullOrEmpty(String? s) => (s == null || s.isEmpty) ? true : false;
+  static bool isNullOrEmpty(String? s) {
+    return (s == null || s.isEmpty) ? true : false;
+  }
 
   ///
   /// Checks if the given String [s] is not null or empty
@@ -33,18 +37,19 @@ class StringUtils {
   /// Example : helloWorld => HELLO_WORLD
   ///
   static String camelCaseToUpperUnderscore(String s) {
-    var sb = StringBuffer();
+    final sb = StringBuffer();
     var first = true;
-    s.runes.forEach((int rune) {
-      var char = String.fromCharCode(rune);
+    for (final rune in s.runes) {
+      final char = String.fromCharCode(rune);
       if (isUpperCase(char) && !first) {
-        sb.write('_');
-        sb.write(char.toUpperCase());
+        sb
+          ..write('_')
+          ..write(char.toUpperCase());
       } else {
         first = false;
         sb.write(char.toUpperCase());
       }
-    });
+    }
     return sb.toString();
   }
 
@@ -53,10 +58,10 @@ class StringUtils {
   /// Example : helloWorld => hello_world
   ///
   static String camelCaseToLowerUnderscore(String s) {
-    var sb = StringBuffer();
+    final sb = StringBuffer();
     var first = true;
-    s.runes.forEach((int rune) {
-      var char = String.fromCharCode(rune);
+    for (final rune in s.runes) {
+      final char = String.fromCharCode(rune);
       if (isUpperCase(char) && !first) {
         if (char != '_') {
           sb.write('_');
@@ -66,7 +71,7 @@ class StringUtils {
         first = false;
         sb.write(char.toLowerCase());
       }
-    });
+    }
     return sb.toString();
   }
 
@@ -114,9 +119,9 @@ class StringUtils {
     }
     s = s.trim();
     if (allWords) {
-      var words = s.split(' ');
-      var capitalized = [];
-      for (var w in words) {
+      final words = s.split(' ');
+      final capitalized = [];
+      for (final w in words) {
         capitalized.add(capitalize(w));
       }
       return capitalized.join(' ');
@@ -147,7 +152,8 @@ class StringUtils {
           count++;
         }
       } else {
-        if (i == char.toLowerCase().runes.first || i == char.toUpperCase().runes.first) {
+        if (i == char.toLowerCase().runes.first ||
+            i == char.toUpperCase().runes.first) {
           count++;
         }
       }
@@ -165,7 +171,7 @@ class StringUtils {
       return false;
     }
     if (s.length > 1) {
-      for (var r in s.runes) {
+      for (final r in s.runes) {
         if (r ^ 0x30 > 9) {
           return false;
         }
@@ -179,13 +185,14 @@ class StringUtils {
   ///
   /// Compares the given strings [a] and [b].
   ///
-  static bool equalsIgnoreCase(String a, String b) => a.toLowerCase() == b.toLowerCase();
+  static bool equalsIgnoreCase(String a, String b) =>
+      a.toLowerCase() == b.toLowerCase();
 
   ///
   /// Checks if the given [list] contains the string [s]
   ///
   static bool inList(String s, List<String> list, {bool ignoreCase = false}) {
-    for (var l in list) {
+    for (final l in list) {
       if (ignoreCase) {
         if (equalsIgnoreCase(s, l)) {
           return true;
@@ -225,8 +232,9 @@ class StringUtils {
   /// 1234567890 with begin 2 and end 6 => 12****7890
   /// 1234567890 with begin 1 => 1****67890
   ///
-  static String? hidePartial(String s, {int begin = 0, int? end, String replace = '*'}) {
-    var buffer = StringBuffer();
+  static String? hidePartial(String s,
+      {int begin = 0, int? end, String replace = '*'}) {
+    final buffer = StringBuffer();
     if (s.length <= 1) {
       return null;
     }
@@ -262,19 +270,20 @@ class StringUtils {
   /// 1234567890 , '-', 3 => 123-4567890
   /// 1234567890 , '-', 3, true => 123-456-789-0
   ///
-  static String addCharAtPosition(String s, String char, int position, {bool repeat = false}) {
+  static String addCharAtPosition(String s, String char, int position,
+      {bool repeat = false}) {
     if (!repeat) {
       if (s.length < position) {
         return s;
       }
-      var before = s.substring(0, position);
-      var after = s.substring(position, s.length);
+      final before = s.substring(0, position);
+      final after = s.substring(position, s.length);
       return before + char + after;
     } else {
       if (position == 0) {
         return s;
       }
-      var buffer = StringBuffer();
+      final buffer = StringBuffer();
       for (var i = 0; i < s.length; i++) {
         if (i != 0 && i % position == 0) {
           buffer.write(char);
@@ -289,9 +298,9 @@ class StringUtils {
   /// Splits the given String [s] in chunks with the given [chunkSize].
   ///
   static List<String> chunk(String s, int chunkSize) {
-    var chunked = <String>[];
+    final chunked = <String>[];
     for (var i = 0; i < s.length; i += chunkSize) {
-      var end = (i + chunkSize < s.length) ? i + chunkSize : s.length;
+      final end = (i + chunkSize < s.length) ? i + chunkSize : s.length;
       chunked.add(s.substring(i, end));
     }
     return chunked;
@@ -306,7 +315,8 @@ class StringUtils {
   ///
   static String pickOnly(value, {int from = 1, int to = -1}) {
     try {
-      return value.substring(from == 0 ? 0 : from - 1, to == -1 ? value.length : to);
+      return value.substring(
+          from == 0 ? 0 : from - 1, to == -1 ? value.length : to);
     } catch (e) {
       return value;
     }
@@ -320,7 +330,8 @@ class StringUtils {
   /// returns 'flutter'
   static String removeCharAtPosition(String value, int index) {
     try {
-      return value.substring(0, -1 + index) + value.substring(index, value.length);
+      return value.substring(0, -1 + index) +
+          value.substring(index, value.length);
     } catch (e) {
       return value;
     }
@@ -345,13 +356,23 @@ class StringUtils {
     if (repeat) {
       result = value
           .replaceAll(
-              RegExp(pattern, caseSensitive: caseSensitive, multiLine: multiLine, dotAll: dotAll, unicode: unicode), '')
+              RegExp(pattern,
+                  caseSensitive: caseSensitive,
+                  multiLine: multiLine,
+                  dotAll: dotAll,
+                  unicode: unicode),
+              '')
           .replaceAll(RegExp(' +'), ' ')
           .trim();
     } else {
       result = value
           .replaceFirst(
-              RegExp(pattern, caseSensitive: caseSensitive, multiLine: multiLine, dotAll: dotAll, unicode: unicode), '')
+              RegExp(pattern,
+                  caseSensitive: caseSensitive,
+                  multiLine: multiLine,
+                  dotAll: dotAll,
+                  unicode: unicode),
+              '')
           .replaceAll(RegExp(' +'), ' ')
           .trim();
     }
@@ -387,36 +408,37 @@ class StringUtils {
   ///
   static String generateRandomString(
     int length, {
-    alphabet = true,
-    numeric = true,
-    special = true,
-    uppercase = true,
-    lowercase = true,
+    bool alphabet = true,
+    bool numeric = true,
+    bool special = true,
+    bool uppercase = true,
+    bool lowercase = true,
     String from = '',
   }) {
     var res = '';
 
     do {
-      res += _randomizer(alphabet, numeric, lowercase, uppercase, special, from);
+      res +=
+          _randomizer(alphabet, numeric, lowercase, uppercase, special, from);
     } while (res.length < length);
 
-    var possible = res.split('');
-    possible.shuffle();
-    var result = [];
+    final possible = res.split('')..shuffle();
+    final result = [];
 
     for (var i = 0; i < length; i++) {
-      var randomNumber = Random().nextInt(length);
+      final randomNumber = Random().nextInt(length);
       result.add(possible[randomNumber]);
     }
 
     return result.join();
   }
 
-  static String _randomizer(bool alphabet, bool numeric, bool lowercase, bool uppercase, bool special, String from) {
-    var a = 'ABCDEFGHIJKLMNOPQRXYZ';
-    var la = 'abcdefghijklmnopqrxyz';
-    var b = '0123456789';
-    var c = '~^!@#\$%^&*;`(=?]:[.)_+-|\{}';
+  static String _randomizer(bool alphabet, bool numeric, bool lowercase,
+      bool uppercase, bool special, String from) {
+    const a = 'ABCDEFGHIJKLMNOPQRXYZ';
+    const la = 'abcdefghijklmnopqrxyz';
+    const b = '0123456789';
+    const c = '~^!@#\$%^&*;`(=?]:[.)_+-|\{}';
     var result = '';
 
     if (alphabet) {
@@ -478,16 +500,16 @@ class StringUtils {
   static List<String> generateRandomStrings(
     int amount,
     int length, {
-    alphabet = true,
-    numeric = true,
-    special = true,
-    uppercase = true,
-    lowercase = true,
+    bool alphabet = true,
+    bool numeric = true,
+    bool special = true,
+    bool uppercase = true,
+    bool lowercase = true,
     String from = '',
   }) {
-    var l = <String>[];
+    final l = <String>[];
     for (var i = 0; i < amount; i++) {
-      var s = generateRandomString(
+      final s = generateRandomString(
         length,
         alphabet: alphabet,
         numeric: numeric,
@@ -506,13 +528,13 @@ class StringUtils {
   ///
   static bool isIP(String s, {InternetAddressType? ipType}) {
     if (ipType == null || ipType == InternetAddressType.any) {
-      return isIP(s, ipType: InternetAddressType.IPv4) || isIP(s, ipType: InternetAddressType.IPv6);
+      return isIP(s, ipType: InternetAddressType.IPv4) ||
+          isIP(s, ipType: InternetAddressType.IPv6);
     } else if (ipType == InternetAddressType.IPv4) {
       if (!_ipv4Maybe.hasMatch(s)) {
         return false;
       }
-      var parts = s.split('.');
-      parts.sort((a, b) => int.parse(a) - int.parse(b));
+      final parts = s.split('.')..sort((a, b) => int.parse(a) - int.parse(b));
       return int.parse(parts[3]) <= 255;
     } else if (ipType == InternetAddressType.IPv6) {
       return _ipv6.hasMatch(s);

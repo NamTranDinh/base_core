@@ -178,7 +178,8 @@ class FToast {
     bool isDismissible = false,
   }) {
     if (context == null) {
-      throw Exception('Error: Context is null, Please call init(context) before showing toast.');
+      throw Exception(
+          'Error: Context is null, Please call init(context) before showing toast.');
     }
     final Widget newChild = _ToastStateFul(
       child,
@@ -219,39 +220,28 @@ class FToast {
   ) {
     switch (gravity) {
       case ToastGravity.TOP:
-        return Positioned(top: 100, left: 24, right: 24, child: child);
+        return Positioned(top: 0, left: 0, right: 0, child: child);
       case ToastGravity.TOP_LEFT:
-        return Positioned(top: 100, left: 24, child: child);
+        return Positioned(top: 0, left: 0, child: child);
       case ToastGravity.TOP_RIGHT:
-        return Positioned(top: 100, right: 24, child: child);
+        return Positioned(top: 0, right: 0, child: child);
       case ToastGravity.CENTER:
-        return Positioned(
-          top: 50,
-          bottom: 50,
-          left: 24,
-          right: 24,
-          child: child,
-        );
+        return Positioned(top: 0, bottom: 0, left: 0, right: 0, child: child);
       case ToastGravity.CENTER_LEFT:
-        return Positioned(top: 50, bottom: 50, left: 24, child: child);
+        return Positioned(top: 0, bottom: 0, left: 0, child: child);
       case ToastGravity.CENTER_RIGHT:
-        return Positioned(top: 50, bottom: 50, right: 24, child: child);
+        return Positioned(top: 0, bottom: 0, right: 0, child: child);
       case ToastGravity.BOTTOM_LEFT:
-        return Positioned(bottom: 50, left: 24, child: child);
+        return Positioned(bottom: 0, left: 0, child: child);
       case ToastGravity.BOTTOM_RIGHT:
-        return Positioned(bottom: 50, right: 24, child: child);
+        return Positioned(bottom: 0, right: 0, child: child);
       case ToastGravity.SNACKBAR:
-        return Positioned(
-          bottom: MediaQuery.of(context!).viewInsets.bottom,
-          left: 0,
-          right: 0,
-          child: child,
-        );
+        return Positioned(bottom: 0, left: 0, right: 0, child: child);
       case ToastGravity.NONE:
         return Positioned.fill(child: child);
       case ToastGravity.BOTTOM:
       default:
-        return Positioned(bottom: 50, left: 24, right: 24, child: child);
+        return Positioned(bottom: 0, left: 16, right: 16, child: child);
     }
   }
 }
@@ -361,14 +351,16 @@ class ToastStateFulState extends State<_ToastStateFul>
     return GestureDetector(
       onTap: widget.onDismiss == null ? null : () => widget.onDismiss!(),
       behavior: HitTestBehavior.translucent,
-      child: IgnorePointer(
-        ignoring: widget.ignorePointer,
-        child: FadeTransition(
-          opacity: _fadeAnimation as Animation<double>,
-          child: Center(
-            child: Material(
-              color: Colors.transparent,
-              child: widget.child,
+      child: SafeArea(
+        child: IgnorePointer(
+          ignoring: widget.ignorePointer,
+          child: FadeTransition(
+            opacity: _fadeAnimation as Animation<double>,
+            child: Center(
+              child: Material(
+                color: Colors.transparent,
+                child: widget.child,
+              ),
             ),
           ),
         ),

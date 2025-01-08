@@ -68,10 +68,9 @@ class AppTextTheme {
         color: color,
       ),
       s22: TextStyle(
-        fontSize: 20,
+        fontSize: 22,
         fontFamily: defaultFont,
         color: color,
-        fontWeight: FontWeight.w800,
       ),
       s24: TextStyle(
         fontSize: 24,

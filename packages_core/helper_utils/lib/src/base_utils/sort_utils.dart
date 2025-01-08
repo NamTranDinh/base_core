@@ -10,12 +10,12 @@ class SortUtils {
       return list;
     }
 
-    var pivot = list[0];
+    final pivot = list[0];
     var less = [];
     var more = [];
-    var pivotList = [];
+    final pivotList = [];
 
-    list.forEach((var element) {
+    for (final element in list) {
       if (element.compareTo(pivot) < 0) {
         less.add(element);
       } else if (element.compareTo(pivot) > 0) {
@@ -23,13 +23,14 @@ class SortUtils {
       } else {
         pivotList.add(element);
       }
-    });
+    }
 
     less = quickSort(less);
     more = quickSort(more);
 
-    less.addAll(pivotList);
-    less.addAll(more);
+    less
+      ..addAll(pivotList)
+      ..addAll(more);
     return less;
   }
 
@@ -37,7 +38,7 @@ class SortUtils {
   /// Implementation of the bubble sort algorithm
   ///
   static List bubbleSort(List list) {
-    var retList = List.from(list);
+    final retList = List.from(list);
     var tmp;
     var swapped = false;
     do {
@@ -59,7 +60,7 @@ class SortUtils {
   /// Implementation of the heap sort algorithm
   ///
   static List heapSort(List a) {
-    var count = a.length;
+    final count = a.length;
 
     var start = (count - 2) ~/ 2;
 
@@ -70,7 +71,7 @@ class SortUtils {
 
     var end = count - 1;
     while (end > 0) {
-      var tmp = a[end];
+      final tmp = a[end];
       a[end] = a[0];
       a[0] = tmp;
 
@@ -94,7 +95,7 @@ class SortUtils {
       }
 
       if (a[root].compareTo(a[child]) == -1) {
-        var tmp = a[root];
+        final tmp = a[root];
         a[root] = a[child];
         a[child] = tmp;
         root = child;

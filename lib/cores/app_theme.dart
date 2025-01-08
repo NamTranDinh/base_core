@@ -1,4 +1,5 @@
 import 'package:base_core/cores/app_color.dart';
+import 'package:base_core/cores/app_dimens.dart';
 import 'package:base_core/cores/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:helper_utils/helper_utils.dart';
@@ -60,8 +61,8 @@ class AppThemeData {
       scaffoldBackgroundColor: colorTheme.background,
       primaryColor: colorTheme.primary,
       indicatorColor: colorTheme.primary,
-      hoverColor: colorTheme.primary,
-      highlightColor: colorTheme.primary,
+      hoverColor: colorTheme.originalWhite,
+      highlightColor: colorTheme.originalWhite,
       splashColor: colorTheme.primary.withAlpha((255 / 5).round()),
       popupMenuTheme: PopupMenuThemeData(color: colorTheme.originalWhite),
       scrollbarTheme: ScrollbarThemeData(
@@ -92,20 +93,18 @@ class AppThemeData {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          backgroundColor: colorTheme.primary,
-          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDimens.appBorderRadius),
+          ),
+          elevation: 1,
+          shadowColor: Colors.transparent,
           alignment: Alignment.center,
+          overlayColor: Colors.white,
+          surfaceTintColor: Colors.white,
+          foregroundColor: Colors.white,
+          backgroundColor: colorTheme.primary,
           disabledBackgroundColor: Colors.grey,
         ),
-      ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: colorTheme.primary,
-        highlightElevation: 1,
-        focusElevation: 1,
-        hoverElevation: 1,
-        elevation: 1,
-        disabledElevation: 1,
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
@@ -158,23 +157,31 @@ class AppThemeData {
           // fontFamily: FontFamily.firaSansRegular,
         ),
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius:
+              BorderRadius.all(Radius.circular(AppDimens.appBorderRadius)),
         ),
         disabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius:
+              BorderRadius.all(Radius.circular(AppDimens.appBorderRadius)),
         ),
         enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius:
+              BorderRadius.all(Radius.circular(AppDimens.appBorderRadius)),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius:
+              BorderRadius.all(Radius.circular(AppDimens.appBorderRadius)),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(AppDimens.appBorderRadius),
+          ),
           borderSide: BorderSide(color: colorTheme.error),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(AppDimens.appBorderRadius),
+          ),
           borderSide: BorderSide(color: colorTheme.error),
         ),
       ),

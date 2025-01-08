@@ -6,17 +6,17 @@ import 'package:base_core/routes/app_router.dart';
 import 'package:flutter/material.dart';
 
 class AppData {
-  AppData(this.themeContext);
+  AppData(this.context);
 
-  AppData.of(this.themeContext);
+  AppData.of(this.context);
 
-  final BuildContext themeContext;
+  final BuildContext context;
 
   AppRouter get router => getIt<AppRouter>();
 
-  BuildContext get context => router.navigatorKey.currentContext!;
+  BuildContext get themeContext => router.navigatorKey.currentContext!;
 
-  AppThemeData get appTheme => MyAppTheme.of(themeContext);
+  AppThemeData get appTheme => MyAppTheme.of(context);
 
   AppColorTheme get colorTheme => appTheme.colorTheme;
 
