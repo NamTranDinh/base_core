@@ -22,9 +22,10 @@ class App extends StatelessWidget {
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           return MyAppTheme(
-            data: AppThemeData.system(context),
+            appThemeData: AppThemeData.system(context),
             child: MaterialApp.router(
               locale: state.locale,
+              theme: state.appThemeData.themeData,
               routerConfig: AppData.of(context).router.config(),
               debugShowCheckedModeBanner: false,
               builder: (context, child) {

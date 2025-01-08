@@ -8,6 +8,8 @@ class AppColorTheme {
     required this.success,
     required this.warning,
     required this.error,
+    this.originalWhite = Colors.white,
+    this.originalBlack = Colors.black,
   });
 
   factory AppColorTheme.light() => AppColorTheme(
@@ -39,8 +41,8 @@ class AppColorTheme {
 
   factory AppColorTheme.dark() => AppColorTheme(
         primary: const MaterialColor(
-          0xFF1A657A,
-          {100: Color(0xFF1A657A)},
+          0xFFFFFFFF,
+          {100: Color(0xFFFFFFFF)},
         ),
         primaryText: const MaterialColor(
           0xFFFFFFFF,
@@ -70,4 +72,6 @@ class AppColorTheme {
   final MaterialColor success;
   final MaterialColor warning;
   final MaterialColor error;
+  final Color originalWhite;
+  final Color originalBlack;
 }
