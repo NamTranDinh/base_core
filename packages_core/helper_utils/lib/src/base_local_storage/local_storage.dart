@@ -1,11 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BaseLocalStorage {
-  const BaseLocalStorage(
-    SharedPreferences sharedPreferences,
-  ) : _sharedPreferences = sharedPreferences;
+  BaseLocalStorage._internal();
 
-  final SharedPreferences _sharedPreferences;
+  late SharedPreferences _sharedPreferences;
+
+  static Future<BaseLocalStorage> getInstance() async {
+    final localStorage = BaseLocalStorage._internal()
+      .._sharedPreferences = await SharedPreferences.getInstance();
+    return localStorage;
+  }
 
   Future<void> setValue<T>(String key, T value) async {
     await _setValue(key, value);

@@ -6,6 +6,7 @@ import 'package:base_core/routes/app_router.dart';
 import 'package:dio/dio.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:helper_utils/helper_utils.dart';
 
 final getIt = GetIt.instance;
 
@@ -28,12 +29,12 @@ Future<void> initDI() async {
    * │ storage
    * └──────────────────────────────────────────────────────────────────────────
    */
-    // ..registerLazySingleton<AppStorage>(
-    //   AppStorage.new,
-    // )
-    // ..registerLazySingleton<SecureStorage>(
-    //   SecureStorage.new,
-    // )
+    ..registerLazySingletonAsync<BaseLocalStorage>(
+      BaseLocalStorage.getInstance,
+    )
+    ..registerLazySingleton<BaseSecureStorage>(
+      BaseSecureStorage.new,
+    )
     /**
    * ┌──────────────────────────────────────────────────────────────────────────
    * │ dio
