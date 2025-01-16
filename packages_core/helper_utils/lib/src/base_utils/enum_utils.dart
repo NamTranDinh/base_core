@@ -11,13 +11,15 @@ class EnumUtils {
   /// stringToEnum('wednesday', Day.values, Day.Monday, ignoreCase: true); // will receive wednesday from the given Day.values.
   /// ```
   static T getEnum<T extends Enum>(
-    final String enumName,
-    final List<T> enumList,
-    final T defaultEnum, {
+    String enumName,
+    List<T> enumList,
+    T defaultEnum, {
     bool ignoreCase = false,
   }) =>
       enumList.firstWhere(
-        (element) => ignoreCase ? element.name.toUpperCase() == enumName.toUpperCase() : element.name == enumName,
+        (element) => ignoreCase
+            ? element.name.toUpperCase() == enumName.toUpperCase()
+            : element.name == enumName,
         orElse: () => defaultEnum,
       );
 
@@ -29,13 +31,19 @@ class EnumUtils {
   /// isValidEnum('Wednesday', Day.values); // will receive Day.Wednesday from Day.values
   /// isValidEnum('wednesday', Day.values, ignoreCase: true); // will receive wednesday from the given Day.values.
   /// ```
-  static bool isValidEnum(final String enumName, final List<Enum> enumList, {bool ignoreCase = false}) {
+  static bool isValidEnum(
+    String enumName,
+    List<Enum> enumList, {
+    bool ignoreCase = false,
+  }) {
     try {
       enumList.firstWhere(
-        (element) => ignoreCase ? element.name.toUpperCase() == enumName.toUpperCase() : element.name == enumName,
+        (element) => ignoreCase
+            ? element.name.toUpperCase() == enumName.toUpperCase()
+            : element.name == enumName,
       );
       return true;
-    } catch (ex) {
+    } on Exception {
       return false;
     }
   }
@@ -45,11 +53,11 @@ class EnumUtils {
   ///
   /// This method is useful when you need a map of enums by name.
   ///
-  static Map getEnumMap(final List<Enum> enumList) {
+  static Map getEnumMap(List<Enum> enumList) {
     final map = {};
-    enumList.forEach((element) {
+    for (final element in enumList) {
       map[element.name] = element;
-    });
+    }
     return map;
   }
 }

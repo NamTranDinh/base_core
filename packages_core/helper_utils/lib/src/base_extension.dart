@@ -36,7 +36,7 @@ extension ContextExtension on BuildContext {
 
 extension AppLocalizationsExtension on BuildContext {
   void hideKeyboard() {
-    FocusScopeNode currentFocus = FocusScope.of(this);
+    final currentFocus = FocusScope.of(this);
     if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
       currentFocus.focusedChild?.unfocus();
     }
@@ -45,7 +45,7 @@ extension AppLocalizationsExtension on BuildContext {
 
 extension StringExtension on String {
   String get toFirstCapital {
-    return this.split(' ').map((word) {
+    return split(' ').map((word) {
       if (word.isNotEmpty) {
         return '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}';
       }

@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class SecureStorage {
-  SecureStorage() {
+class BaseSecureStorage {
+  BaseSecureStorage() {
     _storageOption = FlutterSecureStorage(
       aOptions: _getAndroidOptions(),
       iOptions: _getIOSOption(),

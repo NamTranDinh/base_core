@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocalStorage {
-  const LocalStorage(
+class BaseLocalStorage {
+  const BaseLocalStorage(
     SharedPreferences sharedPreferences,
   ) : _sharedPreferences = sharedPreferences;
 
@@ -32,16 +32,12 @@ class LocalStorage {
     switch (T) {
       case String:
         await _sharedPreferences.setString(key, value as String);
-        break;
       case bool:
         await _sharedPreferences.setBool(key, value as bool);
-        break;
       case double:
         await _sharedPreferences.setDouble(key, value as double);
-        break;
       case int:
         await _sharedPreferences.setInt(key, value as int);
-        break;
       default:
         throw Exception();
     }

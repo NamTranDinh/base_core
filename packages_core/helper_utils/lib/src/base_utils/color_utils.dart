@@ -1,5 +1,3 @@
-import 'package:helper_utils/src/base_utils/math_utils.dart';
-
 ///
 /// Helper class for color operations.
 ///
@@ -95,43 +93,15 @@ class ColorUtils {
     }
 
     var filledUp = '';
-    for (final r in hex.runes) {
+    hex.runes.forEach((r) {
       final char = String.fromCharCode(r);
       if (char == '#') {
         filledUp = filledUp + char;
       } else {
         filledUp = filledUp + char + char;
       }
-    }
+    });
     return filledUp;
-  }
-
-  ///
-  /// Returns true or false if the calculated relative luminance from the given [hex] is less than 0.5.
-  ///
-  static bool isDark(String hex) {
-    final bC = basicColorsFromHex(hex);
-
-    return calculateRelativeLuminance(
-          bC[BASIC_COLOR_RED]!,
-          bC[BASIC_COLOR_GREEN]!,
-          bC[BASIC_COLOR_BLUE]!,
-        ) <
-        0.5;
-  }
-
-  ///
-  /// Calculates the limunance for the given [hex] color and returns black as hex for bright colors, white as hex for dark colors.
-  ///
-  static String contrastColor(String hex) {
-    final bC = basicColorsFromHex(hex);
-
-    final luminance = calculateRelativeLuminance(
-      bC[BASIC_COLOR_RED]!,
-      bC[BASIC_COLOR_GREEN]!,
-      bC[BASIC_COLOR_BLUE]!,
-    );
-    return luminance > 0.5 ? HEX_BLACK : HEX_WHITE;
   }
 
   ///
@@ -153,23 +123,6 @@ class ColorUtils {
     final G = int.parse(hex.substring(3, 5), radix: 16);
     final B = int.parse(hex.substring(5, 7), radix: 16);
     return {BASIC_COLOR_RED: R, BASIC_COLOR_GREEN: G, BASIC_COLOR_BLUE: B};
-  }
-
-  ///
-  /// Calculates the relative luminance for the given [red], [green], [blue] values.
-  ///
-  /// The returned value is between 0 and 1 with the given [decimals].
-  ///
-  static double calculateRelativeLuminance(
-    int red,
-    int green,
-    int blue, {
-    int decimals = 2,
-  }) {
-    return MathUtils.round(
-      (0.299 * red + 0.587 * green + 0.114 * blue) / 255,
-      decimals,
-    );
   }
 
   ///
@@ -212,7 +165,7 @@ class ColorUtils {
         invertedColor.add('#');
       } else {
         invertedColor.add(
-          (~int.parse('0x${color[i]}')).toUnsigned(4).toRadixString(16),
+          ((~int.parse('0x${color[i]}')).toUnsigned(4)).toRadixString(16),
         );
       }
     }

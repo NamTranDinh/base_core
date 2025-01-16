@@ -6,25 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:helper_utils/src/base_enum.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
-import 'package:video_player/video_player.dart';
 
-class AppHelper {
+class BaseHelper {
   static Size getSizeByKey(GlobalKey key) {
     final renderBox = key.currentContext?.findRenderObject() as RenderBox?;
     final size = renderBox?.size;
     return size ?? Size.zero;
-  }
-
-  static bool compareDate(String startDate, String endDate) {
-    final start = DateFormat('MM-yyyy').parse(startDate);
-    final end = DateFormat('MM-yyyy').parse(endDate);
-    return start.isBefore(end);
-  }
-
-  static bool isSameDate(DateTime startDate, DateTime endDate) {
-    return startDate.year == endDate.year &&
-        startDate.month == endDate.month &&
-        startDate.day == endDate.day;
   }
 
   Future<Size> getImageDimension({required String url}) {
@@ -54,10 +41,8 @@ class AppHelper {
     throw ArgumentError('Invalid path: $path');
   }
 
-  /**
-   * format : dd/MM/yyyy
-   * output : 01/01/2023
-   */
+  /// format : dd/MM/yyyy
+  /// output : 01/01/2023
   static Future<String> datePicker({
     String? format,
     required BuildContext context,
@@ -96,12 +81,12 @@ class AppHelper {
     required DateTime selectedDate,
     required void Function(DateTime) onChanged,
   }) async {
-    showDialog(
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title ?? ''),
-          content: Container(
+          content: SizedBox(
             width: 300,
             height: 300,
             child: YearPicker(
@@ -143,55 +128,58 @@ class AppHelper {
   static void copyPhoneExtension(String? content, BuildContext context) {
     Clipboard.setData(ClipboardData(text: content ?? '')).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Số điện thoại đã được sao chép!")));
+        const SnackBar(content: Text('Số điện thoại đã được sao chép!')),
+      );
     });
   }
 
   static void copyMailExtension(String? content, BuildContext context) {
     Clipboard.setData(ClipboardData(text: content ?? '')).then((_) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Email đã được sao chép!")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Email đã được sao chép!')),
+      );
     });
   }
 
   static Future<void> makeCallExtension(String contactNumber) async {
-    final Uri _phoneUri = Uri(scheme: "tel", path: contactNumber);
+    final phoneUri = Uri(scheme: 'tel', path: contactNumber);
     try {
-      if (await url_launcher.canLaunchUrl(Uri.parse(_phoneUri.toString())))
-        await url_launcher.launchUrl(Uri.parse(_phoneUri.toString()));
+      if (await url_launcher.canLaunchUrl(Uri.parse(phoneUri.toString()))) {
+        await url_launcher.launchUrl(Uri.parse(phoneUri.toString()));
+      }
     } catch (error) {
-      throw ("Cannot dial");
+      throw 'Cannot dial';
     }
   }
 
   static Future<void> sendMessageExtension(String contactNumber) async {
-    final Uri _phoneUri = Uri(scheme: "sms", path: contactNumber);
+    final phoneUri = Uri(scheme: 'sms', path: contactNumber);
     try {
-      if (await url_launcher.canLaunchUrl(Uri.parse(_phoneUri.toString())))
-        await url_launcher.launchUrl(Uri.parse(_phoneUri.toString()));
+      if (await url_launcher.canLaunchUrl(Uri.parse(phoneUri.toString()))) {
+        await url_launcher.launchUrl(Uri.parse(phoneUri.toString()));
+      }
     } catch (error) {
-      throw ("Cannot dial");
+      throw 'Cannot dial';
     }
   }
 
   static Future<void> sendMailExtension(String contactNumber) async {
-    final Uri _phoneUri = Uri(
+    final phoneUri = Uri(
       scheme: 'mailto',
       path: contactNumber,
     );
     try {
-      if (await url_launcher.canLaunchUrl(Uri.parse(_phoneUri.toString())))
-        await url_launcher.launchUrl(Uri.parse(_phoneUri.toString()));
+      if (await url_launcher.canLaunchUrl(Uri.parse(phoneUri.toString()))) {
+        await url_launcher.launchUrl(Uri.parse(phoneUri.toString()));
+      }
     } catch (error) {
-      throw ("Cannot dial");
+      throw 'Cannot dial';
     }
   }
 
-  /**
-   * dateString : 2020-07-14T10:20:26.353
-   * format     : HH:mm dd/MM/yyyy
-   * return     : 10:10 14/07/2020
-   */
+  /// dateString : 2020-07-14T10:20:26.353
+  /// format     : HH:mm dd/MM/yyyy
+  /// return     : 10:10 14/07/2020
   static String convertDateFormat({
     required String dateString,
     String? format,
@@ -207,10 +195,8 @@ class AppHelper {
     }
   }
 
-  /**
-   * format : yyyy-MM-ddTHH:mm:ss.SSS
-   * return : 2023-07-17T11:39:14.473
-   */
+  /// format : yyyy-MM-ddTHH:mm:ss.SSS
+  /// return : 2023-07-17T11:39:14.473
   static String getCurrentDateTimeByFormat({String? format}) {
     final now = DateTime.now();
     final dateFormat = format ?? 'yyyy-MM-ddTHH:mm:ss.SSS';
@@ -250,7 +236,7 @@ class AppHelper {
 
   static Color getRandomColor() {
     final random = Random();
-    final colorsList = Colors.primaries;
+    const colorsList = Colors.primaries;
     final randomIndex = random.nextInt(colorsList.length);
     return colorsList[randomIndex];
   }
@@ -267,7 +253,7 @@ class AppHelper {
       throw UnsupportedError('Unsupported type: ${value.runtimeType}');
     } catch (e) {
       // logger.e('parsePrice error: $e');
-      return 0.0;
+      return 0;
     }
   }
 
@@ -287,14 +273,14 @@ class AppHelper {
   /// ```
   static String formatMilliseconds(int milliseconds) {
     // Create a Duration object from the provided milliseconds.
-    Duration duration = Duration(milliseconds: milliseconds);
+    final duration = Duration(milliseconds: milliseconds);
 
     // Calculate the remaining seconds and minutes after removing full hours.
-    int seconds = duration.inSeconds % 60;
-    int minutes = duration.inMinutes % 60;
+    final seconds = duration.inSeconds % 60;
+    final minutes = duration.inMinutes % 60;
 
     // Get the total hours.
-    int hours = duration.inHours;
+    final hours = duration.inHours;
 
     /// Formats a number with leading zero if it's less than 10.
     String twoDigits(int n) => n >= 10 ? '$n' : '0$n';
@@ -307,12 +293,12 @@ class AppHelper {
     }
   }
 
-  static DataSourceType isLocalPath(String path) {
-    Uri uri = Uri.parse(path);
+  static EnumDataSourceType isLocalPath(String path) {
+    final uri = Uri.parse(path);
     final isFile = uri.scheme == '' || uri.scheme == 'file';
     final isNetWork = uri.scheme == 'http' || uri.scheme == 'https';
-    if (isFile) return DataSourceType.file;
-    if (isNetWork) return DataSourceType.network;
+    if (isFile) return EnumDataSourceType.file;
+    if (isNetWork) return EnumDataSourceType.network;
     throw ArgumentError('Invalid path: $path');
   }
 }

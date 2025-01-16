@@ -22,7 +22,8 @@ class IterableUtils {
   ///
   /// Checks if the given Iterable [iterable] is null or empty
   ///
-  static bool isNullOrEmpty(Iterable? iterable) => (iterable == null || iterable.isEmpty) ? true : false;
+  static bool isNullOrEmpty(Iterable? iterable) =>
+      (iterable == null || iterable.isEmpty) ? true : false;
 
   ///
   /// Checks if the given Iterable [iterable] is not null or empty
@@ -36,10 +37,10 @@ class IterableUtils {
     if (size <= 1) {
       throw ArgumentError('size must be >1');
     }
-    var parts = <List<T>>[];
+    final parts = <List<T>>[];
     final baseListSize = list.length;
     for (var i = 0; i < baseListSize; i += size) {
-      var subList = list.sublist(i, min<int>(baseListSize, i + size));
+      final subList = list.sublist(i, min<int>(baseListSize, i + size));
       parts.add(subList);
     }
     return parts;
@@ -54,7 +55,8 @@ class IterableUtils {
   static Iterable<T> zip<T>(Iterable<T> a, Iterable<T> b) sync* {
     final ita = a.iterator;
     final itb = b.iterator;
-    bool hasA, hasB;
+    bool hasA;
+    bool hasB;
     while ((hasA = ita.moveNext()) | (hasB = itb.moveNext())) {
       if (hasA) yield ita.current;
       if (hasB) yield itb.current;
@@ -72,7 +74,7 @@ class IterableUtils {
   /// Returns an immutable empty collection if the argument is null,
   /// or the argument itself otherwise.
   ///
-  static Iterable emptyIfNull(final Iterable? collection) {
+  static Iterable emptyIfNull(Iterable? collection) {
     return collection ?? _emptyIterable;
   }
 
@@ -82,7 +84,10 @@ class IterableUtils {
   /// be equal to the maximum of the cardinality of that element in the two
   /// given [Iterable].
   ///
-  static Iterable<E> union<E>(final Iterable<E> iterable1, final Iterable<E> iterable2) {
+  static Iterable<E> union<E>(
+    Iterable<E> iterable1,
+    Iterable<E> iterable2,
+  ) {
     final a = Set.of(iterable1);
     final b = Set.of(iterable2);
     return a.union(b);
@@ -91,7 +96,10 @@ class IterableUtils {
   ///
   /// Returns a [Iterable] containing the intersection of the given [Iterable].
   ///
-  static Iterable intersection(final Iterable iterable1, final Iterable iterable2) {
+  static Iterable intersection(
+    Iterable iterable1,
+    Iterable iterable2,
+  ) {
     final a = Set.of(iterable1);
     final b = Set.of(iterable2);
     return a.intersection(b);
@@ -102,7 +110,7 @@ class IterableUtils {
   /// Only the elements of b that satisfy the predicate condition,
   /// p are subtracted from a.
   ///
-  static Iterable subtract(final Iterable iterable1, final Iterable iterable2) {
+  static Iterable subtract(Iterable iterable1, Iterable iterable2) {
     final a = Set.of(iterable1);
     final b = Set.of(iterable2);
     return a.difference(b);
@@ -111,7 +119,7 @@ class IterableUtils {
   ///
   /// Returns true if all elements of [iterable2] are also contained in [iterable1].
   ///
-  static bool containsAll(final Iterable iterable1, final Iterable iterable2) {
+  static bool containsAll(Iterable iterable1, Iterable iterable2) {
     if (iterable2.isEmpty) {
       return true;
     }
@@ -122,7 +130,7 @@ class IterableUtils {
   ///
   /// Returns true if at least one element is in both collections.
   ///
-  static bool containsAny(final Iterable iterable1, final Iterable iterable2) {
+  static bool containsAny(Iterable iterable1, Iterable iterable2) {
     if (iterable1.length < iterable2.length) {
       return iterable1.any((element) => iterable2.contains(element));
     } else {
@@ -133,7 +141,7 @@ class IterableUtils {
   ///
   /// Gets the size of the [Iterator], [Map] or specified.
   ///
-  static int size(final dynamic iterable) {
+  static int size(dynamic iterable) {
     if (iterable == null) {
       return 0;
     }
@@ -153,15 +161,18 @@ class IterableUtils {
   ///
   /// Gets the size of the [Iterator], [Map] or specified.
   ///
-  static bool sizeIsEmpty(final dynamic iterable) {
+  static bool sizeIsEmpty(dynamic iterable) {
     final result = size(iterable);
     return result == 0;
   }
 
-  static void _permutate(int n, List<dynamic> elements, List<List<dynamic>> store) {
+  static void _permutate(
+    int n,
+    List<dynamic> elements,
+    List<List<dynamic>> store,
+  ) {
     if (n == 1) {
-      var t = <dynamic>[];
-      t.addAll(elements);
+      final t = <dynamic>[...elements];
       store.add(t);
     } else {
       for (var i = 0; i < n - 1; i++) {
@@ -180,7 +191,7 @@ class IterableUtils {
   /// Swaps the given index [a] and [b] in the given [input]
   ///
   static void swap(List<dynamic> input, int a, int b) {
-    var tmp = input[a];
+    final tmp = input[a];
     input[a] = input[b];
     input[b] = tmp;
   }
@@ -197,9 +208,8 @@ class IterableUtils {
   /// result = [[A, B, C], [B, A, C], [C, A, B], [A, C, B], [B, C, A], [C, B, A]]
   ///
   static List<List<dynamic>> permutate(List<dynamic> data) {
-    var store = <List<dynamic>>[];
-    var tmp = <dynamic>[];
-    tmp.addAll(data);
+    final store = <List<dynamic>>[];
+    final tmp = <dynamic>[...data];
     _permutate(data.length, tmp, store);
     return store;
   }

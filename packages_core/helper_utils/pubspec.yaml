@@ -21,25 +21,10 @@ dependencies:
   equatable: any
   timezone: any
   flutter_animate: any
-  video_player: any
-  photo_view: any
   http: any
-
-plugin:
-  platforms:
-    web:
-      pluginClass: DownloadHelper
-      fileName: web_download_helper.dart
-    android:
-      package: helper_utils
-      pluginClass: DownloadHelper
-      fileName: app_download_helper.dart
-    ios:
-      package: helper_utils
-      pluginClass: DownloadHelper
-      fileName: app_download_helper.dart
-
-
+  flutter_secure_storage: ^9.2.3
+  mocktail: ^1.0.4
+  shared_preferences: ^2.3.5
 
 dev_dependencies:
   flutter_test:

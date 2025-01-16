@@ -13,8 +13,6 @@ dependencies:
     sdk: flutter
 
   # ==== package core ========
-  local_services:
-    path: packages_core/local_services
   helper_utils:
     path: packages_core/helper_utils
 
