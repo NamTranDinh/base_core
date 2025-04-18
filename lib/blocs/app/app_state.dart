@@ -1,9 +1,16 @@
 part of 'app_cubit.dart';
 
-@immutable
-sealed class AppState extends Equatable {}
+class AppState extends Equatable {
+  const AppState({
+    required this.themeMode,
+  });
 
-final class AppInitial extends AppState {
+  factory AppState.init() {
+    return const AppState(themeMode: ThemeMode.system);
+  }
+
+  final ThemeMode themeMode;
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [themeMode];
 }

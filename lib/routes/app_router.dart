@@ -1,9 +1,12 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:base_core/routes/app_router.gr.dart';
+import 'package:base_core/pages/splash/splash_screen.dart';
+import 'package:base_core/routes/app_route_name.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-@AutoRouterConfig(deferredLoading: true)
-class AppRouter extends RootStackRouter {
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+
+class AppRouter {
   factory AppRouter() {
     return _instance;
   }
@@ -12,68 +15,23 @@ class AppRouter extends RootStackRouter {
 
   static final AppRouter _instance = AppRouter._init();
 
-  final _rootNavigatorKey = GlobalKey<NavigatorState>();
+  static final _appRouter = GoRouter(
+    navigatorKey: rootNavigatorKey,
+    initialLocation: AppRouteName.splash.path,
+    observers: [
+      BotToastNavigatorObserver(),
+    ],
+    routes: [
+      GoRoute(
+        path: AppRouteName.splash.path,
+        name: AppRouteName.splash.path,
+        builder: (BuildContext context, GoRouterState state) {
+          return const SplashScreen();
+        },
+      ),
+    ],
+    errorBuilder: (context, state) => Container(),
+  );
 
-  @override
-  RouteType get defaultRouteType => const RouteType.material();
-
-  @override
-  GlobalKey<NavigatorState> get navigatorKey {
-    return _rootNavigatorKey;
-  }
-
-  @override
-  List<AutoRoute> get routes => [
-        _Router(
-          page: SplashRoute.page,
-          initial: true,
-          customRouteBuilder: <T>(context, child, page) {
-            return _pageRouteBuilder<T>(page, child);
-          },
-        ),
-
-        _Router(
-          page: HomeRouteRoute.page,
-          customRouteBuilder: <T>(context, child, page) {
-            return _pageRouteBuilder<T>(page, child);
-          },
-        ),
-
-        /// routes go here
-      ];
-
-  PageRouteBuilder<T> _pageRouteBuilder<T>(
-    AutoRoutePage<T> page,
-    Widget child,
-  ) {
-    return PageRouteBuilder<T>(
-      settings: page,
-      transitionsBuilder: (ctx, anim, secondaryAnim, child) {
-        final tween = Tween(begin: const Offset(1, 0), end: Offset.zero);
-        final offsetAnimation = anim.drive(tween);
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
-      pageBuilder: (_, __, ___) => Material(child: child),
-    );
-  }
-}
-
-class _Router extends CustomRoute implements AutoRouteGuard {
-  _Router({
-    required super.page,
-    super.customRouteBuilder,
-    super.initial,
-    super.transitionsBuilder,
-  });
-
-  @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
-    resolver.next();
-  }
-
-  @override
-  List<AutoRouteGuard> get guards => [this];
+  static GoRouter get getRouter => _appRouter;
 }

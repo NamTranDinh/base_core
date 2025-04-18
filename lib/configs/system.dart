@@ -6,17 +6,17 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SystemConfiguration {
   static Future<void> initEnv() async {
-    F.appFlavor = _getFlavor();
     await dotenv.load(fileName: 'environments/.env');
+    F.appFlavor = _getFlavor();
   }
 
   static Flavor _getFlavor() {
-    const f = String.fromEnvironment('FLAVOR', defaultValue: 'UN_KNOW_FLAVOR');
-    if (f == 'develop') {
+    final f = dotenv.get('FLAVOR');
+    if (f == 'DEVELOP') {
       return Flavor.develop;
-    } else if (f == 'uat') {
+    } else if (f == 'UAT') {
       return Flavor.uat;
-    } else if (f == 'product') {
+    } else if (f == 'PRODUCT') {
       return Flavor.product;
     }
 
@@ -28,7 +28,6 @@ class SystemConfiguration {
     'Accept': 'application/json',
   };
 }
-
 
 class LanguageManager {
   factory LanguageManager() {

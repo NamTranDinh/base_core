@@ -1,10 +1,17 @@
+import 'package:flutter/material.dart';
+
 abstract class MenuItemValue {
   String valueItem();
 
   String idItem();
+}
 
-  @override
-  String toString() {
-    return '';
-  }
+abstract class BaseColors {
+  MaterialColor get primary;
+
+  MaterialColor get warning;
+
+  MaterialColor get success;
+
+  MaterialColor get error;
 }

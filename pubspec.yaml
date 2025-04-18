@@ -39,7 +39,7 @@ dependencies:
   flutter_flavorizr: ^2.2.3
   collection: ^1.19.0
   flutter_dotenv: ^5.2.1
-  auto_route: ^9.2.2
+  go_router: ^7.0.0
 # ===========================
 
 
