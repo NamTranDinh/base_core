@@ -26,7 +26,6 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightAppTheme(context),
         darkTheme: AppTheme.darkAppTheme(context),
-        themeMode: ThemeMode.light,
         builder: (context, child) {
           return LoaderOverlay(
             overlayWidgetBuilder: (_) {

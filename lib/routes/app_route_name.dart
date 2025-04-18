@@ -14,6 +14,12 @@ class AppRouteName {
   static RouterModel welcome = RouterModel(
     path: '/welcome',
   );
+  static RouterModel home = RouterModel(
+    path: '/home',
+  );
+  static RouterModel home1 = RouterModel(
+    path: '/home1',
+  );
 }
 
 class RouterModel {
