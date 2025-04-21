@@ -28,21 +28,21 @@ class AppRouter {
         path: AppRouteName.splash.path,
         name: AppRouteName.splash.path,
         pageBuilder: (context, state) {
-          return _customTransitionPage(page: const SplashScreen());
+          return _transitionPage(page: const SplashScreen());
         },
       ),
       GoRoute(
         path: AppRouteName.home.path,
         name: AppRouteName.home.path,
         pageBuilder: (context, state) {
-          return _customTransitionPage(page: const HomePageScreen());
+          return _transitionPage(page: const HomePageScreen());
         },
       ),
       GoRoute(
         path: AppRouteName.home1.path,
         name: AppRouteName.home1.path,
         pageBuilder: (context, state) {
-          return _customTransitionPage(page: const HomePageScreen1());
+          return _transitionPage(page: const HomePageScreen1());
         },
       ),
     ],
@@ -56,9 +56,31 @@ class AppRouter {
       child: page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return FadeTransition(
-          opacity: CurveTween(curve: Curves.linear).animate(
-            animation,
+          opacity: CurveTween(curve: Curves.linear).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+
+  static CustomTransitionPage<dynamic> _transitionPage({
+    required Widget page,
+  }) {
+    return CustomTransitionPage(
+      child: page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final slideAnimation = Tween<Offset>(
+          begin: const Offset(1, 0),
+          end: Offset.zero,
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInOut,
           ),
+        );
+
+        return SlideTransition(
+          position: slideAnimation,
           child: child,
         );
       },
