@@ -147,7 +147,7 @@ class BaseHelper {
       if (await url_launcher.canLaunchUrl(Uri.parse(phoneUri.toString()))) {
         await url_launcher.launchUrl(Uri.parse(phoneUri.toString()));
       }
-    } catch (error) {
+    } on Exception {
       throw 'Cannot dial';
     }
   }
@@ -158,7 +158,7 @@ class BaseHelper {
       if (await url_launcher.canLaunchUrl(Uri.parse(phoneUri.toString()))) {
         await url_launcher.launchUrl(Uri.parse(phoneUri.toString()));
       }
-    } catch (error) {
+    } on Exception {
       throw 'Cannot dial';
     }
   }
@@ -172,7 +172,7 @@ class BaseHelper {
       if (await url_launcher.canLaunchUrl(Uri.parse(phoneUri.toString()))) {
         await url_launcher.launchUrl(Uri.parse(phoneUri.toString()));
       }
-    } catch (error) {
+    } on Exception {
       throw 'Cannot dial';
     }
   }
@@ -189,7 +189,7 @@ class BaseHelper {
       final dateFormat = format ?? 'HH:mm dd/MM/yyyy';
       final formattedDate = DateFormat(dateFormat).format(originalDate);
       return formattedDate;
-    } catch (e) {
+    } on Exception catch (e) {
       print('Error occurred while parsing the date: $e');
       return '';
     }
@@ -251,7 +251,7 @@ class BaseHelper {
         return value.toDouble();
       }
       throw UnsupportedError('Unsupported type: ${value.runtimeType}');
-    } catch (e) {
+    } on Exception {
       // logger.e('parsePrice error: $e');
       return 0;
     }

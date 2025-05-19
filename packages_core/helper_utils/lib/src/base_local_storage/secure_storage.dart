@@ -1,27 +1,11 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class BaseSecureStorage {
-  BaseSecureStorage() {
-    _storageOption = FlutterSecureStorage(
-      aOptions: _getAndroidOptions(),
-      iOptions: _getIOSOption(),
-      webOptions: _getWebOptions(),
-    );
-  }
-
-  FlutterSecureStorage? _storageOption;
+  BaseSecureStorage();
 
   FlutterSecureStorage get getStorageOption {
-    return _storageOption ?? const FlutterSecureStorage();
+    return const FlutterSecureStorage();
   }
-
-  AndroidOptions _getAndroidOptions() => const AndroidOptions(
-        encryptedSharedPreferences: true,
-      );
-
-  IOSOptions _getIOSOption() => IOSOptions.defaultOptions;
-
-  WebOptions _getWebOptions() => WebOptions.defaultOptions;
 
   Future<bool> containsKey({required String key}) async {
     return getStorageOption.containsKey(

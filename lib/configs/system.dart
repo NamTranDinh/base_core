@@ -6,8 +6,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SystemConfiguration {
   static Future<void> initEnv() async {
-    await dotenv.load(fileName: 'environments/.env');
-    F.appFlavor = _getFlavor();
+    try {
+      await dotenv.load(fileName: 'environments/develop.env');
+      F.appFlavor = _getFlavor();
+    } on Exception catch (e) {
+      debugPrint('Could not load .env file: $e');
+    }
   }
 
   static Flavor _getFlavor() {

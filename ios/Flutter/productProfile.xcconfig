@@ -1,7 +1,7 @@
-#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.profile-product.xcconfig"
 #include "Generated.xcconfig"
 
-FLUTTER_TARGET=lib/main_product.dart
+FLUTTER_TARGET=lib/main.dart
 ASSET_PREFIX=product
 BUNDLE_NAME=Base Core
 BUNDLE_DISPLAY_NAME=Base Core

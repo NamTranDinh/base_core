@@ -57,6 +57,7 @@ flutter:
 
   assets:
     - environments/.env
+    - environments/develop.env
     - assets/app/
     - assets/i18n/
 

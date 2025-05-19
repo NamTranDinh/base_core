@@ -58,7 +58,6 @@ linter:
     - null_check_on_nullable_type_parameter
     - only_throw_errors
     - overridden_fields
-    - package_api_docs
     - package_names
     - package_prefixed_library_names
     - prefer_adjacent_string_concatenation
@@ -175,7 +174,6 @@ linter:
     - prefer_constructors_over_static_methods
     - prefer_foreach
     - tighten_type_of_initializing_formals
-    - unsafe_html
     - use_colored_box
     - use_enums
     - use_is_even_rather_than_modulo
