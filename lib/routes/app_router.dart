@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:base_core/routes/app_router.gr.dart';
+import 'package:base_core/securities/auth_guard_router.dart';
 import 'package:flutter/material.dart';
 
 @AutoRouterConfig()
@@ -17,56 +18,44 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        _Router(
+        CustomSlideRoute(
           page: SplashRoute.page,
           initial: true,
-          customRouteBuilder: <T>(context, child, page) {
-            return _pageRouteBuilder<T>(page, child);
-          },
         ),
 
-        _Router(
-          page: HomeRouteRoute.page,
-          customRouteBuilder: <T>(context, child, page) {
-            return _pageRouteBuilder<T>(page, child);
-          },
+        CustomSlideRoute(
+          page: HomePageRouter.page,
+          guards: [AuthGuard()],
+        ),
+
+        CustomSlideRoute(
+          page: PageNotFoundRouter.page,
         ),
 
         /// routes go here
       ];
-
-  PageRouteBuilder<T> _pageRouteBuilder<T>(
-    AutoRoutePage<T> page,
-    Widget child,
-  ) {
-    return PageRouteBuilder<T>(
-      settings: page,
-      transitionsBuilder: (ctx, anim, secondaryAnim, child) {
-        final tween = Tween(begin: const Offset(1, 0), end: Offset.zero);
-        final offsetAnimation = anim.drive(tween);
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
-      pageBuilder: (_, __, ___) => child,
-    );
-  }
 }
 
-class _Router extends CustomRoute implements AutoRouteGuard {
-  _Router({
+class CustomSlideRoute extends CustomRoute {
+  CustomSlideRoute({
     required super.page,
-    super.customRouteBuilder,
     super.initial,
-    super.transitionsBuilder,
+    super.guards,
+    super.path,
+    super.transitionsBuilder = CustomSlideRoute._buildPageTransition,
   });
 
-  @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
-    resolver.next();
+  static Widget _buildPageTransition(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    final tween = Tween(begin: const Offset(1, 0), end: Offset.zero);
+    final offsetAnimation = animation.drive(tween);
+    return SlideTransition(
+      position: offsetAnimation,
+      child: child,
+    );
   }
-
-  @override
-  List<AutoRouteGuard> get guards => [this];
 }

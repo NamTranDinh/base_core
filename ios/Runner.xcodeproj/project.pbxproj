@@ -537,9 +537,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24596DCBE15933258E3EE195 /* developRelease.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = B6JX75XWDD;
+				DEVELOPMENT_TEAM = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbbank.smartinfonew;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.base-core.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Release-develop";
@@ -765,7 +765,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A4D794859751204435D7D249 /* uatProfile.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -847,9 +848,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9CFD428D165A72534483B4FA /* developProfile.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = B6JX75XWDD;
+				DEVELOPMENT_TEAM = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbbank.smartinfonew;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.base-core.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Profile-develop";
@@ -858,7 +859,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E282C18A765793E90DE15FC5 /* productDebug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -870,7 +872,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AC49EA862C1688006D321F55 /* uatDebug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1029,7 +1032,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B4B9CAECF1BF7C487272F45 /* productProfile.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1041,7 +1045,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2418B8AD8BC51873CFCD2D8 /* uatRelease.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1053,7 +1058,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5CAB712A978BD7A9D9BA7EE2 /* productRelease.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1146,9 +1152,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EC6B651E6D69FDC55390AEC3 /* developDebug.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = B6JX75XWDD;
+				DEVELOPMENT_TEAM = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbbank.smartinfonew;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.base-core.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Debug-develop";

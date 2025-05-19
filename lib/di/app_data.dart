@@ -1,9 +1,10 @@
+import 'package:base_core/blocs/app/app_cubit.dart';
 import 'package:base_core/cores/app_color.dart';
-import 'package:base_core/cores/app_text_style.dart';
-import 'package:base_core/cores/app_theme.dart';
+import 'package:base_core/cores/app_text_theme.dart';
 import 'package:base_core/di/di.dart';
 import 'package:base_core/routes/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppData {
   AppData(this.context);
@@ -16,9 +17,27 @@ class AppData {
 
   BuildContext get themeContext => router.navigatorKey.currentContext!;
 
-  AppThemeData get appTheme => MyAppTheme.of(context);
+  Brightness get appTheme => Theme.of(context).brightness;
 
-  AppColorTheme get colorTheme => appTheme.colorTheme;
+  ThemeMode get themeMode => context.read<AppCubit>().state.themeMode;
 
-  AppTextTheme get textTheme => appTheme.textTheme;
+  AppTextTheme get textStyle {
+    return AppTextTheme.raw(context: context);
+  }
+
+  AppColor get color {
+    switch (themeMode) {
+      case ThemeMode.dark:
+        return AppColor.dark();
+      case ThemeMode.light:
+        return AppColor.light();
+      case ThemeMode.system:
+        switch (appTheme) {
+          case Brightness.dark:
+            return AppColor.dark();
+          case Brightness.light:
+            return AppColor.light();
+        }
+    }
+  }
 }

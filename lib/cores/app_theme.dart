@@ -1,70 +1,18 @@
 import 'package:base_core/cores/app_color.dart';
 import 'package:base_core/cores/app_dimens.dart';
-import 'package:base_core/cores/app_text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:helper_utils/helper_utils.dart';
 
 class AppThemeData {
-  factory AppThemeData({
-    required AppColorTheme colorTheme,
-    required ThemeData themeData,
-  }) {
-    return AppThemeData.raw(
-      textTheme: AppTextTheme.create(colorTheme.primaryText),
-      colorTheme: colorTheme,
-      themeData: themeData,
-    );
-  }
-
-  factory AppThemeData.light() {
-    final lightColor = AppColorTheme.light();
-    return AppThemeData(
-      colorTheme: lightColor,
-      themeData: _baseTheme(lightColor),
-    );
-  }
-
-  factory AppThemeData.dark() {
-    final darkColor = AppColorTheme.dark();
-    return AppThemeData(
-      colorTheme: darkColor,
-      themeData: _baseTheme(darkColor),
-    );
-  }
-
-  factory AppThemeData.system(BuildContext context) {
-    final brightness = context.brightness;
-    if (brightness == Brightness.dark) {
-      return AppThemeData.dark();
-    } else if (brightness == Brightness.light) {
-      return AppThemeData.light();
-    }
-    return AppThemeData.light();
-  }
-
-  const AppThemeData.raw({
-    required this.textTheme,
-    required this.colorTheme,
-    required this.themeData,
-  });
-
-  final AppTextTheme textTheme;
-  final AppColorTheme colorTheme;
-  final ThemeData themeData;
-
-  static ThemeData _baseTheme(
-    AppColorTheme colorTheme, {
-    Brightness? brightness,
-  }) {
+  static ThemeData setTheme(AppColor colorTheme, {Brightness? brightness}) {
     return ThemeData(
       brightness: brightness,
       scaffoldBackgroundColor: colorTheme.background,
       primaryColor: colorTheme.primary,
       indicatorColor: colorTheme.primary,
-      hoverColor: colorTheme.originalWhite,
-      highlightColor: colorTheme.originalWhite,
+      hoverColor: Colors.white,
+      highlightColor: Colors.white,
       splashColor: colorTheme.primary.withAlpha((255 / 5).round()),
-      popupMenuTheme: PopupMenuThemeData(color: colorTheme.originalWhite),
+      popupMenuTheme: const PopupMenuThemeData(color: Colors.white),
       scrollbarTheme: ScrollbarThemeData(
         trackColor: WidgetStatePropertyAll(colorTheme.primary),
         thumbColor: WidgetStatePropertyAll(colorTheme.primary),
@@ -72,7 +20,7 @@ class AppThemeData {
         thickness: const WidgetStatePropertyAll(1.5),
       ),
       appBarTheme: AppBarTheme(
-        color: colorTheme.originalWhite,
+        color: colorTheme.primary,
         centerTitle: false,
         titleTextStyle: TextStyle(
           color: colorTheme.primaryText,
@@ -82,9 +30,9 @@ class AppThemeData {
         ),
         elevation: 0,
       ),
-      bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor: colorTheme.originalWhite,
-        shape: const RoundedRectangleBorder(
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -99,9 +47,9 @@ class AppThemeData {
           elevation: 1,
           shadowColor: Colors.transparent,
           alignment: Alignment.center,
-          overlayColor: Colors.white,
-          surfaceTintColor: Colors.white,
-          foregroundColor: Colors.white,
+          overlayColor: Colors.grey.shade200,
+          surfaceTintColor: Colors.grey.shade200,
+          foregroundColor: Colors.grey.shade200,
           backgroundColor: colorTheme.primary,
           disabledBackgroundColor: Colors.grey,
         ),
@@ -130,22 +78,22 @@ class AppThemeData {
           if (states.contains(WidgetState.selected)) {
             return colorTheme.primary;
           } else {
-            return colorTheme.originalWhite;
+            return Colors.white;
           }
         }),
         side: BorderSide(color: colorTheme.primary),
         checkColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return colorTheme.originalWhite;
+            return Colors.white;
           } else {
             return colorTheme.primary;
           }
         }),
       ),
-      dialogTheme: DialogTheme(
-        backgroundColor: colorTheme.originalWhite,
+      dialogTheme: const DialogTheme(
+        backgroundColor: Colors.white,
         alignment: Alignment.center,
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
       ),
@@ -194,8 +142,8 @@ class AppThemeData {
       sliderTheme: SliderThemeData(
         trackHeight: 3,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
-        activeTrackColor: colorTheme.originalWhite,
-        inactiveTrackColor: colorTheme.originalWhite.withAlpha(
+        activeTrackColor: Colors.white,
+        inactiveTrackColor: Colors.white.withAlpha(
           (255 / 3).round(),
         ),
       ),
@@ -204,7 +152,7 @@ class AppThemeData {
           if (states.contains(WidgetState.selected)) {
             return colorTheme.primary;
           } else {
-            return colorTheme.originalWhite;
+            return Colors.white;
           }
         }),
         trackColor: WidgetStateProperty.all(
@@ -215,26 +163,5 @@ class AppThemeData {
         cursorColor: colorTheme.primary,
       ),
     );
-  }
-}
-
-class MyAppTheme extends InheritedWidget {
-  const MyAppTheme({
-    super.key,
-    required this.appThemeData,
-    required super.child,
-  });
-
-  final AppThemeData appThemeData;
-
-  static AppThemeData of(BuildContext context) {
-    final result = context.dependOnInheritedWidgetOfExactType<MyAppTheme>();
-    assert(result != null, 'No AppTheme found in context');
-    return result!.appThemeData;
-  }
-
-  @override
-  bool updateShouldNotify(covariant MyAppTheme oldWidget) {
-    return appThemeData != oldWidget.appThemeData;
   }
 }

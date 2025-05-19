@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 
-class AppColorTheme {
-  AppColorTheme({
+class AppColor {
+  AppColor({
     required this.primary,
     required this.primaryText,
+    required this.primaryTextButton,
     required this.background,
     required this.success,
     required this.warning,
     required this.error,
-    this.originalWhite = Colors.white,
-    this.originalBlack = Colors.black,
   });
 
-  factory AppColorTheme.light() => AppColorTheme(
+  factory AppColor.light() => AppColor(
         primary: const MaterialColor(
-          0xFF1A657A,
-          {100: Color(0xFF1A657A)},
+          0xffd2a780,
+          {100: Color(0xffd2a780)},
         ),
         primaryText: const MaterialColor(
-          0xFF252629,
-          {100: Color(0xFF252629)},
+          0xFF282523,
+          {100: Color(0xFF282523)},
+        ),
+        primaryTextButton: const MaterialColor(
+          0xFF282523,
+          {100: Color(0xFF282523)},
         ),
         background: const MaterialColor(
-          0xFFFFFFFF,
-          {100: Color(0xFFFFFFFF)},
+          0xffeeeae7,
+          {100: Color(0xffeeeae7)},
         ),
         success: const MaterialColor(
           0xFF2DBB69,
@@ -39,18 +42,22 @@ class AppColorTheme {
         ),
       );
 
-  factory AppColorTheme.dark() => AppColorTheme(
+  factory AppColor.dark() => AppColor(
         primary: const MaterialColor(
-          0xFFFFFFFF,
-          {100: Color(0xFFFFFFFF)},
+          0xff1d2439,
+          {100: Color(0xff1d2439)},
         ),
         primaryText: const MaterialColor(
-          0xFFFFFFFF,
-          {100: Color(0xFFFFFFFF)},
+          0xfff2ddcc,
+          {100: Color(0xfff2ddcc)},
+        ),
+        primaryTextButton: const MaterialColor(
+          0xfff2ddcc,
+          {100: Color(0xfff2ddcc)},
         ),
         background: const MaterialColor(
-          0xFF252629,
-          {100: Color(0xFF252629)},
+          0xff0c101c,
+          {100: Color(0xff0c101c)},
         ),
         success: const MaterialColor(
           0xFF2DBB69,
@@ -68,10 +75,9 @@ class AppColorTheme {
 
   final MaterialColor primary;
   final MaterialColor primaryText;
+  final MaterialColor primaryTextButton;
   final MaterialColor background;
   final MaterialColor success;
   final MaterialColor warning;
   final MaterialColor error;
-  final Color originalWhite;
-  final Color originalBlack;
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:base_core/configs/system.dart';
 import 'package:base_core/di/di.dart';
-import 'package:base_core/pages/app/app.dart';
+import 'package:base_core/pages/app/app_page.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -23,7 +23,7 @@ FutureOr<void> main() async {
       path: 'assets/i18n',
       fallbackLocale: getIt<LanguageManager>().enLocale,
       supportedLocales: getIt<LanguageManager>().supportedLocales,
-      child: const App(),
+      child: const AppPage(),
     ),
   );
 }
