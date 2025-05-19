@@ -16,9 +16,9 @@ flavors:
       name: "[UAT] Base Core"
       icon: "assets/app/ic_launcher.png"
     android:
-      applicationId: "com.example.base_core.dev"
+      applicationId: "com.example.base_core.uat"
     ios:
-      bundleId: "com.example.base_core.dev"
+      bundleId: "com.example.base_core.uat"
 
   product:
     app:
