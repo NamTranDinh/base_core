@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:core_utils/core_utils.dart';
 import 'package:dio/dio.dart';
-import 'package:helper_utils/helper_utils.dart';
 
 class ApiHelper {
   ApiHelper({required this.dio});

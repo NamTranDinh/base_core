@@ -13,8 +13,10 @@ dependencies:
     sdk: flutter
 
   # ==== package core ========
-  helper_utils:
-    path: packages_core/helper_utils
+  core_utils:
+    git:
+      url: https://github.com/NamTranDinh/core_utils.git
+      ref: main
 
   intl: ^0.20.2
   bot_toast: ^4.1.3

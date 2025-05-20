@@ -3,10 +3,10 @@ import 'package:base_core/configs/dio/api_helper.dart';
 import 'package:base_core/configs/dio/dio_client.dart';
 import 'package:base_core/configs/system.dart';
 import 'package:base_core/routes/app_router.dart';
+import 'package:core_utils/core_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:helper_utils/helper_utils.dart';
 
 final getIt = GetIt.instance;
 

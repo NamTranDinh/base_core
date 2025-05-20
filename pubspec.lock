@@ -249,6 +249,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  core_utils:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "34f936ab0e693137ffcd2323b1a4997e23e4eccf"
+      url: "https://github.com/NamTranDinh/core_utils.git"
+    source: git
+    version: "0.0.1"
   cross_file:
     dependency: transitive
     description:
@@ -525,13 +534,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
-  helper_utils:
-    dependency: "direct main"
-    description:
-      path: "packages_core/helper_utils"
-      relative: true
-    source: path
-    version: "0.1.0+1"
   http:
     dependency: transitive
     description:
