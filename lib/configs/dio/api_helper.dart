@@ -1,7 +1,7 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:core_utils/core_utils.dart';
-import 'package:dio/dio.dart';
+import "package:core_utils/core_utils.dart";
+import "package:dio/dio.dart";
 
 class ApiHelper {
   ApiHelper({required this.dio});
@@ -10,8 +10,8 @@ class ApiHelper {
 
   Future<T> post<T>({
     required String path,
-    Map<String, dynamic>? queryParameters,
     required T Function(dynamic json) getJsonCallback,
+    Map<String, dynamic>? queryParameters,
     Options? options,
     dynamic body,
   }) async {
@@ -36,8 +36,8 @@ class ApiHelper {
 
   Future<T> put<T>({
     required String path,
-    Map<String, dynamic>? queryParameters,
     required T Function(Map<String, dynamic> json) getJsonCallback,
+    Map<String, dynamic>? queryParameters,
     dynamic body,
     Options? options,
   }) async {
@@ -62,8 +62,8 @@ class ApiHelper {
 
   Future<T> delete<T>({
     required String path,
-    Map<String, dynamic>? queryParameters,
     required T Function(dynamic json) getJsonCallback,
+    Map<String, dynamic>? queryParameters,
     dynamic data,
     Options? options,
   }) async {

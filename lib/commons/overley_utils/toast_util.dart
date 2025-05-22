@@ -1,14 +1,14 @@
-import 'package:core_utils/core_utils.dart';
-import 'package:flutter/material.dart';
-import 'package:toastification/toastification.dart';
+import "package:core_utils/core_utils.dart";
+import "package:flutter/material.dart";
+import "package:toastification/toastification.dart";
 
 class ToastUtil {
-  static void showToasts({
+  static void showSnackBar({
     required BuildContext context,
     required Widget title,
+    required void Function(ToastificationItem item) onTap,
     Color? backgroundColor,
     Alignment? alignment,
-    required void Function(ToastificationItem item) onTap,
   }) {
     toastification.show(
       context: context,

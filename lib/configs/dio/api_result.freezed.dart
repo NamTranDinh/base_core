@@ -21,9 +21,9 @@ mixin _$ApiResult<Success, Failure> {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    required TResult Function() orElse,
     TResult Function(Success success)? success,
     TResult Function(Failure failure)? failure,
-    required TResult Function() orElse,
   }) =>
       throw _privateConstructorUsedError;
 
@@ -43,9 +43,9 @@ mixin _$ApiResult<Success, Failure> {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    required TResult Function() orElse,
     TResult Function(_Success<Success, Failure> value)? success,
     TResult Function(_Failure<Success, Failure> value)? failure,
-    required TResult Function() orElse,
   }) =>
       throw _privateConstructorUsedError;
 }
@@ -75,9 +75,9 @@ class _$_Success<Success, Failure> extends _Success<Success, Failure> {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    required TResult Function() orElse,
     TResult Function(Success success)? success,
     TResult Function(Failure failure)? failure,
-    required TResult Function() orElse,
   }) {
     if (success != null) {
       return success(this.success);
@@ -104,9 +104,9 @@ class _$_Success<Success, Failure> extends _Success<Success, Failure> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    required TResult Function() orElse,
     TResult Function(_Success<Success, Failure> value)? success,
     TResult Function(_Failure<Success, Failure> value)? failure,
-    required TResult Function() orElse,
   }) {
     if (success != null) {
       return success(this);
@@ -152,9 +152,9 @@ class _$_Failure<Success, Failure> extends _Failure<Success, Failure> {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    required TResult Function() orElse,
     TResult Function(Success success)? success,
     TResult Function(Failure failure)? failure,
-    required TResult Function() orElse,
   }) {
     if (failure != null) {
       return failure(this.failure);
@@ -181,9 +181,9 @@ class _$_Failure<Success, Failure> extends _Failure<Success, Failure> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    required TResult Function() orElse,
     TResult Function(_Success<Success, Failure> value)? success,
     TResult Function(_Failure<Success, Failure> value)? failure,
-    required TResult Function() orElse,
   }) {
     if (failure != null) {
       return failure(this);

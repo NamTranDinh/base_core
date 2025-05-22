@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class Loading extends StatelessWidget {
-  const Loading({super.key, required this.size});
+  const Loading({required this.size, super.key});
 
   factory Loading.small() => const Loading(size: 18);
 
@@ -23,10 +23,10 @@ class Loading extends StatelessWidget {
 
 class StackLoading extends StatelessWidget {
   const StackLoading({
-    super.key,
     required this.loading,
     required this.child,
     required this.processing,
+    super.key,
     this.emptyWidget,
   });
 

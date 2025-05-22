@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
 
-final getIt = GetIt.instance;
+final GetIt getIt = GetIt.instance;
 
 Future<void> initDI() async {
   /**
@@ -54,7 +54,7 @@ Future<void> initDI() async {
    * │ configs
    * └──────────────────────────────────────────────────────────────────────────
    */
-    ..registerSingleton<LanguageManager>(LanguageManager())
+    ..registerSingleton<LanguageManager>(LanguageManager.instance)
     ..registerSingleton<AppRouter>(AppRouter())
     ..registerSingleton<AppCubit>(AppCubit())
     ..registerSingleton<EventBus>(EventBus(sync: true));

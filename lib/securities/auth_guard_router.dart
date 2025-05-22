@@ -3,11 +3,14 @@ import 'package:base_core/routes/app_router.gr.dart';
 
 class AuthGuard extends AutoRouteGuard {
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
+  Future<void> onNavigation(
+    NavigationResolver resolver,
+    StackRouter router,
+  ) async {
     if (_isUserAuthenticated()) {
       resolver.next();
     } else {
-      router.replaceAll([const PageNotFoundRouter()]);
+      await router.replaceAll([const PageNotFoundRouter()]);
     }
   }
 

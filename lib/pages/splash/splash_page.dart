@@ -16,9 +16,9 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final currentContext = context;
-      Future.delayed(const Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () async {
         if (currentContext.mounted) {
-          currentContext.router.replaceAll([const HomePageRouter()]);
+          await currentContext.router.replaceAll([const HomePageRouter()]);
         }
       });
     });

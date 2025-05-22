@@ -14,9 +14,7 @@ dependencies:
 
   # ==== package core ========
   core_utils:
-    git:
-      url: https://github.com/NamTranDinh/core_utils.git
-      ref: main
+    path: ../core_utils
 
   intl: ^0.20.2
   bot_toast: ^4.1.3
@@ -25,7 +23,7 @@ dependencies:
   dio: ^5.8.0+1
   get_it: ^8.0.3
   event_bus: ^2.0.1
-  chucker_flutter: ^1.8.4
+  chucker_flutter: ^1.8.5
   easy_localization: ^3.0.7+1
   cached_network_image: ^3.4.1
   loader_overlay: ^5.0.0

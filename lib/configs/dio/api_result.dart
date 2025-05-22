@@ -46,11 +46,9 @@ class ApiResult<Success, Failure> with _$ApiResult<Success, Failure> {
 
   @override
   String toString() => when(
-        success: (success) => success == null
-            ? 'Success: (null)'
-            : 'Success: $success',
-        failure: (failure, message) => failure == null
-            ? 'Failure: (null)'
-            : 'Failure: $failure',
+        success: (success) =>
+            success == null ? 'Success: (null)' : 'Success: $success',
+        failure: (failure, message) =>
+            failure == null ? 'Failure: (null)' : 'Failure: $failure',
       );
 }

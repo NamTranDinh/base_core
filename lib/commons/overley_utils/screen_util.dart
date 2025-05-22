@@ -1,15 +1,17 @@
-import 'package:base_core/cores/app_extension.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "dart:async";
+
+import "package:base_core/cores/app_extension.dart";
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
 const mobileWidth = 480.0;
 const tabletWidth = 1024.0;
 
 class ScreenUtil extends StatelessWidget {
   const ScreenUtil({
-    super.key,
     required this.mobile,
     required this.desktop,
+    super.key,
   });
 
   final Widget mobile;
@@ -35,7 +37,7 @@ class ScreenUtil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (ScreenUtil.isMobile(context)) {
-      lockScreenOrientation();
+      unawaited(lockScreenOrientation());
     }
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -48,15 +50,15 @@ class ScreenUtil extends StatelessWidget {
     );
   }
 
-  void lockScreenOrientation() {
-    SystemChrome.setPreferredOrientations([
+  Future<void> lockScreenOrientation() async {
+    await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
   }
 
-  void unlockScreenOrientation() {
-    SystemChrome.setPreferredOrientations([
+  Future<void> unlockScreenOrientation() async {
+    await SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,

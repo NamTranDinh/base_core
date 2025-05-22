@@ -9,7 +9,7 @@ class DioClient {
   DioClient(this.dio) {
     dio
       ..options.baseUrl = dotenv.get('BASE_URL')
-      ..options.headers = SystemConfiguration.header
+      ..options.headers = SystemConfiguration.defaultJsonHeaders
       ..options.connectTimeout = const Duration(seconds: 60)
       ..options.receiveTimeout = const Duration(seconds: 60)
       ..options.responseType = ResponseType.json;

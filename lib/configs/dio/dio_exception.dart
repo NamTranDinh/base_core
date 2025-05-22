@@ -1,3 +1,8 @@
+// Assuming you have an extension method '.tr()' for localization
+// e.g., import 'package:get/get.dart'; or your own localization solution
+
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -8,15 +13,22 @@ enum ExceptionType {
   badResponse,
   sendTimeout,
   socketException,
+  badCertificate,
+  connectionError,
   unexpectedError,
   unknownError,
 }
 
-class DioExceptions implements Exception {
-  DioExceptions.fromDioError(DioException dioError) {
+class AppDioException implements Exception {
+  AppDioException._(this.message, this.exceptionType, {this.originalException});
+
+  factory AppDioException.fromDioError(DioException dioError) {
+    String message;
+    ExceptionType exceptionType;
+
     switch (dioError.type) {
       case DioExceptionType.cancel:
-        message = 'errors_system.cancel_request'.tr();
+        message = 'error_system.cancel_request'.tr();
         exceptionType = ExceptionType.cancel;
       case DioExceptionType.connectionTimeout:
         message = 'error_system.connection_time_out'.tr();
@@ -25,7 +37,7 @@ class DioExceptions implements Exception {
         message = 'error_system.receive_time_out'.tr();
         exceptionType = ExceptionType.receiveTimeout;
       case DioExceptionType.badResponse:
-        message = _handleError(
+        message = _handleDioResponseError(
           dioError.response?.statusCode,
           dioError.response?.data,
         );
@@ -33,68 +45,78 @@ class DioExceptions implements Exception {
       case DioExceptionType.sendTimeout:
         message = 'error_system.send_time_out'.tr();
         exceptionType = ExceptionType.sendTimeout;
+      case DioExceptionType.badCertificate:
+        message = 'error_system.bad_certificate'.tr();
+        exceptionType = ExceptionType.badCertificate;
+      case DioExceptionType.connectionError:
+        message = 'error_system.connection_error'.tr();
+        exceptionType = ExceptionType.connectionError;
       case DioExceptionType.unknown:
-        if (dioError.message?.contains('Socket') ?? false) {
+        if (dioError.error is SocketException) {
           message = 'error_system.socket_exception'.tr();
           exceptionType = ExceptionType.socketException;
-          break;
+        } else if (dioError.message?.contains('Socket') ?? false) {
+          message = 'error_system.socket_exception'.tr();
+          exceptionType = ExceptionType.socketException;
+        } else {
+          message = 'error_system.unexpected_error'.tr();
+          exceptionType = ExceptionType.unexpectedError;
         }
-        message = 'error_system.unexpected_error'.tr();
-        exceptionType = ExceptionType.unexpectedError;
-      default:
-        message = 'error_system.unknown_error'.tr();
-        exceptionType = ExceptionType.unknownError;
     }
+    return AppDioException._(
+      message,
+      exceptionType,
+      originalException: dioError,
+    );
   }
 
-  late String message;
-  late ExceptionType exceptionType;
+  final String message;
+  final ExceptionType exceptionType;
+  final DioException? originalException;
 
-  String _handleError(int? statusCode, dynamic error) {
-    switch (statusCode) {
-      case 400:
-        return 'error_system.bad_request'.tr();
-      case 401:
-        return 'error_system.unauthorized'.tr();
-      case 403:
-        return 'error_system.forbidden'.tr();
-      case 404:
-        return 'error_system.not_found'.tr();
-      case 422:
-        return 'error_system.duplicate_email'.tr();
-      case 500:
-        return 'error_system.internal_server_error'.tr();
-      case 502:
-        return 'error_system.bad_gateway'.tr();
-      default:
-        return 'error_system.unknown_error'.tr();
+  // Renamed for clarity and made static as it doesn't depend on instance state
+  static String _handleDioResponseError(int? statusCode, dynamic errorData) {
+    // Implement more robust error handling based on status code and errorData
+    if (statusCode != null) {
+      if (statusCode >= 400 && statusCode < 500) {
+        return 'error_system.client_error'.tr(args: [statusCode.toString()]);
+      } else if (statusCode >= 500) {
+        return 'error_system.server_error'.tr(args: [statusCode.toString()]);
+      }
     }
+    // Try to get a message from the errorData if available
+    if (errorData != null &&
+        errorData is Map &&
+        errorData.containsKey('message') &&
+        errorData['message'] is String) {
+      return errorData['message'];
+    }
+    return 'error_system.bad_response_generic'.tr();
   }
 
   @override
   String toString() {
-    return 'DioExceptions{message: $message, exceptionType: $exceptionType}';
+    return 'AppDioException: $message (Type: $exceptionType)';
   }
-}
 
-ExceptionType getExceptionType(DioExceptionType dioErrorType) {
-  switch (dioErrorType) {
-    case DioExceptionType.cancel:
-      return ExceptionType.cancel;
-    case DioExceptionType.connectionTimeout:
-      return ExceptionType.connectionTimeout;
-    case DioExceptionType.receiveTimeout:
-      return ExceptionType.receiveTimeout;
-    case DioExceptionType.badResponse:
-      return ExceptionType.badResponse;
-    case DioExceptionType.sendTimeout:
-      return ExceptionType.sendTimeout;
-    case DioExceptionType.unknown:
-      if (dioErrorType.name.contains('Socket')) {
-        return ExceptionType.socketException;
-      }
-      return ExceptionType.unexpectedError;
-    default:
-      return ExceptionType.unknownError;
+  static ExceptionType fromDioExceptionType(DioExceptionType dioExceptionType) {
+    switch (dioExceptionType) {
+      case DioExceptionType.cancel:
+        return ExceptionType.cancel;
+      case DioExceptionType.connectionTimeout:
+        return ExceptionType.connectionTimeout;
+      case DioExceptionType.receiveTimeout:
+        return ExceptionType.receiveTimeout;
+      case DioExceptionType.badResponse:
+        return ExceptionType.badResponse;
+      case DioExceptionType.sendTimeout:
+        return ExceptionType.sendTimeout;
+      case DioExceptionType.badCertificate:
+        return ExceptionType.badCertificate;
+      case DioExceptionType.connectionError:
+        return ExceptionType.connectionError;
+      case DioExceptionType.unknown:
+        return ExceptionType.unknownError;
+    }
   }
 }

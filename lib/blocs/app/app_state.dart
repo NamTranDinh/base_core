@@ -8,8 +8,8 @@ class AppState extends Equatable {
   });
 
   factory AppState.init() {
-    return AppState(
-      locale: getIt<LanguageManager>().enLocale,
+    return const AppState(
+      locale: LanguageManager.enLocale,
       themeMode: ThemeMode.system,
     );
   }

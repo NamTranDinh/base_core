@@ -1,15 +1,15 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:base_core/routes/app_router.gr.dart';
-import 'package:flutter/material.dart';
+import "package:auto_route/auto_route.dart";
+import "package:base_core/routes/app_router.gr.dart";
+import "package:flutter/material.dart";
 
-@RoutePage(name: 'PageNotFoundRouter')
+@RoutePage(name: "PageNotFoundRouter")
 class PageNotFound extends StatelessWidget {
   const PageNotFound({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('404 - Page Not Found')),
+      appBar: AppBar(title: const Text("404 - Page Not Found")),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -23,7 +23,7 @@ class PageNotFound extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => context.router.replaceAll([const SplashRoute()]),
-              child: const Text('Go Back'),
+              child: const Text("Go Back"),
             ),
           ],
         ),

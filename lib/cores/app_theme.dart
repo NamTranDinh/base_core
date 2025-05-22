@@ -1,23 +1,25 @@
-import 'package:base_core/cores/app_color.dart';
-import 'package:base_core/cores/app_dimens.dart';
-import 'package:flutter/material.dart';
+import "package:base_core/cores/app_color.dart";
+import "package:base_core/cores/app_dimens.dart";
+import "package:flutter/material.dart";
 
-class AppThemeData {
-  static ThemeData setTheme(AppColor colorTheme, {Brightness? brightness}) {
-    return ThemeData(
+/// Sets the application's theme based on
+/// the provided [AppColor] and [Brightness].
+///
+/// [colorTheme] The color scheme to use for the theme.
+/// [brightness] The overall brightness of the theme.
+ThemeData setTheme(AppColor colorTheme, {Brightness? brightness}) => ThemeData(
       brightness: brightness,
       scaffoldBackgroundColor: colorTheme.background,
       primaryColor: colorTheme.primary,
-      indicatorColor: colorTheme.primary,
       hoverColor: Colors.white,
       highlightColor: Colors.white,
       splashColor: colorTheme.primary.withAlpha((255 / 5).round()),
       popupMenuTheme: const PopupMenuThemeData(color: Colors.white),
       scrollbarTheme: ScrollbarThemeData(
-        trackColor: WidgetStatePropertyAll(colorTheme.primary),
-        thumbColor: WidgetStatePropertyAll(colorTheme.primary),
+        trackColor: WidgetStatePropertyAll<Color>(colorTheme.primary),
+        thumbColor: WidgetStatePropertyAll<Color>(colorTheme.primary),
         radius: const Radius.circular(100),
-        thickness: const WidgetStatePropertyAll(1.5),
+        thickness: const WidgetStatePropertyAll<double>(1.5),
       ),
       appBarTheme: AppBarTheme(
         color: colorTheme.primary,
@@ -74,7 +76,7 @@ class AppThemeData {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(3.5),
         ),
-        fillColor: WidgetStateProperty.resolveWith((states) {
+        fillColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
           if (states.contains(WidgetState.selected)) {
             return colorTheme.primary;
           } else {
@@ -82,7 +84,7 @@ class AppThemeData {
           }
         }),
         side: BorderSide(color: colorTheme.primary),
-        checkColor: WidgetStateProperty.resolveWith((states) {
+        checkColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
           if (states.contains(WidgetState.selected)) {
             return Colors.white;
           } else {
@@ -90,7 +92,7 @@ class AppThemeData {
           }
         }),
       ),
-      dialogTheme: const DialogTheme(
+      dialogTheme: const DialogThemeData(
         backgroundColor: Colors.white,
         alignment: Alignment.center,
         shape: RoundedRectangleBorder(
@@ -137,7 +139,7 @@ class AppThemeData {
         color: colorTheme.primary,
       ),
       radioTheme: RadioThemeData(
-        fillColor: WidgetStatePropertyAll(colorTheme.primary),
+        fillColor: WidgetStatePropertyAll<Color>(colorTheme.primary),
       ),
       sliderTheme: SliderThemeData(
         trackHeight: 3,
@@ -148,7 +150,9 @@ class AppThemeData {
         ),
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
+        thumbColor: WidgetStateProperty.resolveWith<Color>((
+          Set<WidgetState> states,
+        ) {
           if (states.contains(WidgetState.selected)) {
             return colorTheme.primary;
           } else {
@@ -162,6 +166,5 @@ class AppThemeData {
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: colorTheme.primary,
       ),
+      tabBarTheme: TabBarThemeData(indicatorColor: colorTheme.primary),
     );
-  }
-}

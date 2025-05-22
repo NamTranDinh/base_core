@@ -1,48 +1,62 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:base_core/flavors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SystemConfiguration {
-  static Future<void> initEnv() async {
+  SystemConfiguration._();
+
+  static Future<void> initEnv({String? envFileName}) async {
+    final String actualEnvFileName = envFileName ??
+        _determineEnvFileNameFromDartEnv() ??
+        'environments/develop.env';
+
     try {
-      await dotenv.load(fileName: 'environments/develop.env');
-      F.appFlavor = _getFlavor();
-    } on Exception catch (e) {
-      debugPrint('Could not load .env file: $e');
+      await dotenv.load(fileName: actualEnvFileName);
+      F.appFlavor = _getFlavorFromEnv();
+    } on FileSystemException {
+      F.appFlavor = Flavor.develop;
+    } on Exception {
+      F.appFlavor = Flavor.develop;
     }
   }
 
-  static Flavor _getFlavor() {
-    final f = dotenv.get('FLAVOR');
-    if (f == Flavor.develop.name) {
-      return Flavor.develop;
-    } else if (f == Flavor.uat.name) {
-      return Flavor.uat;
-    } else if (f == Flavor.product.name) {
-      return Flavor.product;
+  static String? _determineEnvFileNameFromDartEnv() {
+    const String appFlavorEnvVar = String.fromEnvironment('APP_FLAVOR');
+    if (appFlavorEnvVar.isNotEmpty) {
+      return 'environments/$appFlavorEnvVar.env';
     }
-
-    return Flavor.product;
+    return null;
   }
 
-  static const header = {
+  static Flavor _getFlavorFromEnv() {
+    final flavorString = dotenv.env['FLAVOR'];
+    switch (flavorString) {
+      case 'develop':
+        return Flavor.develop;
+      case 'uat':
+        return Flavor.uat;
+      case 'product':
+        return Flavor.product;
+      default:
+        return Flavor.product;
+    }
+  }
+
+  static const Map<String, String> defaultJsonHeaders = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   };
 }
 
 class LanguageManager {
-  factory LanguageManager() {
-    return _instance;
-  }
-
   LanguageManager._init();
 
-  static final LanguageManager _instance = LanguageManager._init();
+  static final LanguageManager instance = LanguageManager._init();
 
-  final enLocale = const Locale('en', 'US');
+  static const Locale enLocale = Locale('en', 'US');
 
-  List<Locale> get supportedLocales => [enLocale];
+  static const List<Locale> supportedLocales = [enLocale];
 }

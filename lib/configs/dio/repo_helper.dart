@@ -9,7 +9,7 @@ mixin RepositoryHelper {
       return ApiResult.success(items);
     } on DioException catch (e) {
       final response = e.response;
-      final message = DioExceptions.fromDioError(e).message;
+      final message = AppDioException.fromDioError(e).message;
       return ApiResult.failure(response, message);
     }
   }

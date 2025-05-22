@@ -1,3 +1,4 @@
+import 'package:base_core/commons/app_components/loadings/overlay_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -6,16 +7,20 @@ extension ContextExtension on BuildContext {
 
   double get screenHeight => MediaQuery.of(this).size.height;
 
-  void get showLoading => loaderOverlay.show();
-
-  void get hideLoading => loaderOverlay.hide();
-
   bool get visibleLoading => loaderOverlay.visible;
 
   bool get isDarkMode {
     final brightness = MediaQuery.of(this).platformBrightness;
     return brightness == Brightness.dark;
   }
+
+  void showLoading() => OverlayManager.showEntry(this, 'loading');
+
+  void hideLoading() => OverlayManager.removeEntry('loading');
+
+  void showPopup() => OverlayManager.showEntry(this, 'popup');
+
+  void hidePopup() => OverlayManager.removeEntry('popup');
 }
 
 extension StringExtension on String {

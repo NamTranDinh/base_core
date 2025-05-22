@@ -1,12 +1,12 @@
-import 'package:base_core/cores/app_dimens.dart';
-import 'package:flutter/material.dart';
+import "package:base_core/cores/app_dimens.dart";
+import "package:flutter/material.dart";
 
 class DialogUtil {
   static Future<T?> show<T>({
     required BuildContext context,
     required Widget child,
     bool? barrierDismissible,
-  }) async {
+  }) {
     return showDialog<T?>(
       context: context,
       barrierDismissible: barrierDismissible ?? true,
