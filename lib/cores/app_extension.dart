@@ -1,4 +1,7 @@
-import 'package:base_core/commons/app_components/loadings/overlay_manager.dart';
+import 'package:base_core/commons/app_components/alerts/alert_overlay.dart';
+import 'package:base_core/commons/app_components/loadings/loading_overlay.dart';
+import 'package:base_core/cores/app_constant.dart';
+import 'package:base_core/cores/app_overlay_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -14,13 +17,19 @@ extension ContextExtension on BuildContext {
     return brightness == Brightness.dark;
   }
 
-  void showLoading() => OverlayManager.showEntry(this, 'loading');
+  void showLoading() => AppOverlayManager.showEntry(
+        this,
+        OverlayEntry(builder: (context) => const LoadingOverlay()),
+      );
 
-  void hideLoading() => OverlayManager.removeEntry('loading');
+  void hideLoading() => AppOverlayManager.removeEntry(
+        AppConstant.appLoadingKey,
+      );
 
-  void showPopup() => OverlayManager.showEntry(this, 'popup');
-
-  void hidePopup() => OverlayManager.removeEntry('popup');
+  void showAppAlert() => AppOverlayManager.showEntry(
+        this,
+        OverlayEntry(builder: (context) => const AlertOverlay()),
+      );
 }
 
 extension StringExtension on String {

@@ -1,28 +1,7 @@
 import "package:flutter/material.dart";
 
-class Loading extends StatelessWidget {
-  const Loading({required this.size, super.key});
-
-  factory Loading.small() => const Loading(size: 18);
-
-  factory Loading.medium() => const Loading(size: 36);
-
-  factory Loading.large() => const Loading(size: 50);
-
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: size,
-      width: size,
-      child: const CircularProgressIndicator(strokeWidth: 2),
-    );
-  }
-}
-
-class StackLoading extends StatelessWidget {
-  const StackLoading({
+class LoadingStack extends StatelessWidget {
+  const LoadingStack({
     required this.loading,
     required this.child,
     required this.processing,
@@ -30,36 +9,36 @@ class StackLoading extends StatelessWidget {
     this.emptyWidget,
   });
 
-  factory StackLoading.small({
+  factory LoadingStack.small({
     required Widget child,
     required bool processing,
     Widget? emptyWidget,
   }) =>
-      StackLoading(
+      LoadingStack(
         loading: Loading.small(),
         processing: processing,
         emptyWidget: emptyWidget,
         child: child,
       );
 
-  factory StackLoading.medium({
+  factory LoadingStack.medium({
     required Widget child,
     required bool processing,
     Widget? emptyWidget,
   }) =>
-      StackLoading(
+      LoadingStack(
         loading: Loading.medium(),
         processing: processing,
         emptyWidget: emptyWidget,
         child: child,
       );
 
-  factory StackLoading.large({
+  factory LoadingStack.large({
     required Widget child,
     required bool processing,
     Widget? emptyWidget,
   }) =>
-      StackLoading(
+      LoadingStack(
         loading: Loading.large(),
         processing: processing,
         emptyWidget: emptyWidget,
@@ -85,6 +64,27 @@ class StackLoading extends StatelessWidget {
         else
           const SizedBox(),
       ],
+    );
+  }
+}
+
+class Loading extends StatelessWidget {
+  const Loading({required this.size, super.key});
+
+  factory Loading.small() => const Loading(size: 18);
+
+  factory Loading.medium() => const Loading(size: 36);
+
+  factory Loading.large() => const Loading(size: 50);
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: size,
+      width: size,
+      child: const CircularProgressIndicator(strokeWidth: 2),
     );
   }
 }

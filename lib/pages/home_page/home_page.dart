@@ -21,10 +21,20 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
-                context.showPopup();
+                context.showAppAlert();
               },
               child: Text(
-                "Back page",
+                "Show custom toast (App Alert)",
+                style: AppData(context).textStyle.s14,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final ctx = context..showLoading();
+                Future.delayed(const Duration(seconds: 3), ctx.hideLoading);
+              },
+              child: Text(
+                "Show loading",
                 style: AppData(context).textStyle.s14,
               ),
             ),
@@ -50,7 +60,7 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: Text(
-                "Show Toast",
+                "Show Alert",
                 style: AppData(context).textStyle.s14,
               ),
             ),

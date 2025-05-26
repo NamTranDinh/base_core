@@ -1,7 +1,5 @@
 import "dart:async";
 
-import "package:base_core/commons/app_components/loadings/loading_overlay.dart";
-import "package:base_core/commons/app_components/loadings/overlay_manager.dart";
 import "package:base_core/configs/system.dart";
 import "package:base_core/di/di.dart";
 import "package:base_core/pages/app/app_page.dart";
@@ -19,8 +17,6 @@ Future<void> main() async {
 
   await SystemConfiguration.initEnv();
   await initDI();
-
-  OverlayManager.addEntry("loading", loadingOverlay);
 
   runApp(
     EasyLocalization(
