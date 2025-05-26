@@ -1,6 +1,5 @@
 import 'package:base_core/commons/app_components/alerts/alert_overlay.dart';
 import 'package:base_core/commons/app_components/loadings/loading_overlay.dart';
-import 'package:base_core/cores/app_constant.dart';
 import 'package:base_core/cores/app_overlay_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -17,16 +16,14 @@ extension ContextExtension on BuildContext {
     return brightness == Brightness.dark;
   }
 
-  void showLoading() => AppOverlayManager.showEntry(
+  void showLoading() => AppOverlayManager.instance.showPersistentEntry(
         this,
         OverlayEntry(builder: (context) => const LoadingOverlay()),
       );
 
-  void hideLoading() => AppOverlayManager.removeEntry(
-        AppConstant.appLoadingKey,
-      );
+  void hideLoading() => AppOverlayManager.instance.hidePersistentEntry();
 
-  void showAppAlert() => AppOverlayManager.showEntry(
+  void showAppAlert() => AppOverlayManager.instance.showTemporaryEntry(
         this,
         OverlayEntry(builder: (context) => const AlertOverlay()),
       );
