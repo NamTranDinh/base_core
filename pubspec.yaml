@@ -28,7 +28,7 @@ dependencies:
   cached_network_image: ^3.4.1
   loader_overlay: ^5.0.0
   flutter_gen: ^5.10.0
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   json_annotation: ^4.9.0
   toastification: ^3.0.2
   mime: ^2.0.0
@@ -37,14 +37,14 @@ dependencies:
   flutter_flavorizr: ^2.4.1
   collection: ^1.19.1
   flutter_dotenv: ^5.2.1
-  auto_route: ^10.0.1
+  auto_route: ^10.1.0
 # ===========================
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  auto_route_generator: ^10.0.1
+  auto_route_generator: ^10.1.0
   build_runner: any
 
 dependency_overrides:

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class UserActivityDetector extends StatefulWidget {
   const UserActivityDetector({
-    super.key,
     required this.child,
-    this.durationNotInteraction,
     required this.onTimeout,
+    super.key,
+    this.durationNotInteraction,
   });
 
   final Widget child;
