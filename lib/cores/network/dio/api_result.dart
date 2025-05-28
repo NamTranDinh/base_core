@@ -1,7 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'api_result.freezed.dart';
 
+@freezed
 class ApiResult<Success, Failure> with _$ApiResult<Success, Failure> {
   const ApiResult._();
 

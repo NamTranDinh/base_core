@@ -1,7 +1,7 @@
 import 'package:base_core/blocs/app/app_cubit.dart';
-import 'package:base_core/configs/dio/api_helper.dart';
-import 'package:base_core/configs/dio/dio_client.dart';
-import 'package:base_core/configs/system.dart';
+import 'package:base_core/cores/constants/system.dart';
+import 'package:base_core/cores/network/dio/api_helper.dart';
+import 'package:base_core/cores/network/dio/dio_client.dart';
 import 'package:base_core/routes/app_router.dart';
 import 'package:core_utils/core_utils.dart';
 import 'package:dio/dio.dart';

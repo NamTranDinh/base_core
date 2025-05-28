@@ -1,4 +1,4 @@
-import 'package:base_core/di/app_data.dart';
+import 'package:base_core/cores/dependency_injection/app_data.dart';
 import 'package:flutter/material.dart';
 
 String? defaultFont;

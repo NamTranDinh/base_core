@@ -1,8 +1,8 @@
 import "package:auto_route/auto_route.dart";
 import "package:base_core/commons/overley_utils/dialog_util.dart";
 import "package:base_core/commons/overley_utils/toast_util.dart";
-import "package:base_core/cores/app_extension.dart";
-import "package:base_core/di/app_data.dart";
+import "package:base_core/cores/constants/app_extension.dart";
+import "package:base_core/cores/dependency_injection/app_data.dart";
 import "package:flutter/material.dart";
 import "package:toastification/toastification.dart";
 

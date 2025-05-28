@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # ==== package core ========
+  # ==== package cores ========
   core_utils:
     path: ../core_utils
 
@@ -38,6 +38,8 @@ dependencies:
   collection: ^1.19.1
   flutter_dotenv: ^5.2.1
   auto_route: ^10.1.0
+  freezed: ^3.0.6
+  freezed_annotation: ^3.0.0
 # ===========================
 
 
@@ -45,7 +47,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   auto_route_generator: ^10.1.0
-  build_runner: any
+  build_runner: ^2.4.15
 
 dependency_overrides:
   intl: ^0.20.2

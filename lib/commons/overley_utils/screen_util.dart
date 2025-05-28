@@ -1,6 +1,6 @@
 import "dart:async";
 
-import "package:base_core/cores/app_extension.dart";
+import "package:base_core/cores/constants/app_extension.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 

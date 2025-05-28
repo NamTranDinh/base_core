@@ -1,9 +1,9 @@
 import "package:base_core/blocs/app/app_cubit.dart";
 import "package:base_core/commons/app_components/widgets/page_not_found.dart";
-import "package:base_core/cores/app_color.dart";
-import "package:base_core/cores/app_theme.dart";
-import "package:base_core/di/app_data.dart";
-import "package:base_core/di/di.dart";
+import "package:base_core/cores/dependency_injection/app_data.dart";
+import "package:base_core/cores/dependency_injection/di.dart";
+import "package:base_core/cores/themes/app_color.dart";
+import "package:base_core/cores/themes/app_theme.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 

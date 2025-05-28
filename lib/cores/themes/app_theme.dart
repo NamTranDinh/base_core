@@ -1,5 +1,5 @@
-import "package:base_core/cores/app_color.dart";
-import "package:base_core/cores/app_dimens.dart";
+import "package:base_core/cores/constants/app_dimens.dart";
+import "package:base_core/cores/themes/app_color.dart";
 import "package:flutter/material.dart";
 
 /// Sets the application's theme based on

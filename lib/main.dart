@@ -1,8 +1,8 @@
 import "dart:async";
 
-import "package:base_core/configs/system.dart";
-import "package:base_core/di/di.dart";
-import "package:base_core/pages/app/app_page.dart";
+import "package:base_core/cores/constants/system.dart";
+import "package:base_core/cores/dependency_injection/di.dart";
+import "package:base_core/features/app/app_page.dart";
 import "package:bot_toast/bot_toast.dart";
 import "package:chucker_flutter/chucker_flutter.dart";
 import "package:easy_localization/easy_localization.dart";

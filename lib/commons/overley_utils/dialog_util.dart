@@ -1,4 +1,4 @@
-import "package:base_core/cores/app_dimens.dart";
+import "package:base_core/cores/constants/app_dimens.dart";
 import "package:flutter/material.dart";
 
 class DialogUtil {

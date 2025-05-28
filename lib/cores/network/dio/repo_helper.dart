@@ -1,5 +1,5 @@
-import 'package:base_core/configs/dio/api_result.dart';
-import 'package:base_core/configs/dio/dio_exception.dart';
+import 'package:base_core/cores/exception/dio_exception.dart';
+import 'package:base_core/cores/network/dio/api_result.dart';
 import 'package:dio/dio.dart';
 
 mixin RepositoryHelper {

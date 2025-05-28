@@ -1,5 +1,5 @@
-import 'package:base_core/configs/dio/app_interceptor.dart';
-import 'package:base_core/configs/system.dart';
+import 'package:base_core/cores/constants/system.dart';
+import 'package:base_core/cores/network/dio/app_interceptor.dart';
 import 'package:base_core/flavors.dart';
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';

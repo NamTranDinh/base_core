@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:base_core/commons/app_components/alerts/alert_overlay.dart';
 import 'package:base_core/commons/app_components/loadings/loading_overlay.dart';
-import 'package:base_core/cores/app_overlay_manager.dart';
+import 'package:base_core/cores/utils/app_overlay_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -35,6 +37,17 @@ extension StringExtension on String {
   bool get isNullOrEmpty => this == '' || isEmpty;
 }
 
-extension IntExtension on int? {
-  bool get isNullOrEmpty => this == -1 || this == null;
+extension IntExtension on int {
+  bool get isNullOrNegative => this == -1;
+
+  bool get isSuccessStatus => this >= 200 && this <= 299;
+}
+
+extension FileExtention on File {
+  int get size {
+    final sizeInBytes = lengthSync();
+    return sizeInBytes;
+  }
+
+  String get name => path.split('/').last;
 }

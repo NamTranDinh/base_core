@@ -12,8 +12,8 @@
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:base_core/commons/app_components/widgets/page_not_found.dart'
     as _i2;
-import 'package:base_core/pages/home_page/home_page.dart' as _i1;
-import 'package:base_core/pages/splash/splash_page.dart' as _i3;
+import 'package:base_core/features/home_page/home_page.dart' as _i1;
+import 'package:base_core/features/splash/splash_page.dart' as _i3;
 
 /// generated route for
 /// [_i1.HomePage]
