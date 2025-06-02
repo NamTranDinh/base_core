@@ -1,5 +1,6 @@
 import 'package:base_core/commons/app_components/alerts/alert_overlay.dart';
 import 'package:base_core/cores/exception/app_dio_exception.dart';
+import 'package:base_core/cores/exception/app_error_logger.dart';
 import 'package:base_core/cores/utils/app_overlay_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,25 @@ class AppInterceptor extends Interceptor {
         _showSystemAlert(err);
     }
 
+    await _addErrorLogger(err);
+
     handler.next(err);
+  }
+
+  Future<void> _addErrorLogger(DioException err) async {
+    await AppErrorLogger.instance.logError(
+      source: 'DioInterceptor',
+      error: err,
+      stackTrace: err.stackTrace,
+      additionalInfo: {
+        'url': err.requestOptions.uri.toString(),
+        'method': err.requestOptions.method,
+        'statusCode': err.response?.statusCode,
+        'request_body': err.requestOptions.data,
+        'response': err.response?.data,
+        'headers': err.requestOptions.headers,
+      },
+    );
   }
 
   void _showSystemAlert(DioException err) {

@@ -18,8 +18,8 @@ class LoginDatasource with RepositoryHelper implements LoginRepository {
     return checkApiResult(
       apiCallback: apiHelper.post<LoginModel>(
         path: 'auth/login',
+        data: entity.toJson(),
         parser: (res) {
-          print(res.toJson());
           return res;
         },
       ),

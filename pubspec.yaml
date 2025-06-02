@@ -39,6 +39,8 @@ dependencies:
   auto_route: ^10.1.0
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
+  package_info_plus: ^8.3.0
+  path_provider: ^2.1.5
 # ===========================
 
 
@@ -63,6 +65,7 @@ flutter:
     - environments/develop.env
     - assets/app/
     - assets/i18n/
+    - assets/logger/
 
 #  fonts:
 #    - family: Fira_Sans

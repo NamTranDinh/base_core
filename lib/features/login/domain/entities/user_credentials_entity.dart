@@ -3,4 +3,11 @@ class UserCredentialsEntity {
 
   final String userName;
   final String password;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'userName': userName,
+      'password': password,
+    };
+  }
 }
