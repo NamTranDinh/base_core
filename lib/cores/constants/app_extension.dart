@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:base_core/commons/app_components/alerts/alert_overlay.dart';
 import 'package:base_core/commons/app_components/loadings/loading_overlay.dart';
 import 'package:base_core/cores/utils/app_overlay_manager.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +23,6 @@ extension ContextExtension on BuildContext {
       );
 
   void hideLoading() => AppOverlayManager.instance.hidePersistentEntry();
-
-  void showAppAlert() => AppOverlayManager.instance.showTemporaryEntry(
-        this,
-        OverlayEntry(builder: (context) => const AlertOverlay()),
-      );
 }
 
 extension StringExtension on String {

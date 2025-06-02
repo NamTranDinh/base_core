@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'package:base_core/routes/app_router.dart';
 import 'package:flutter/material.dart';
 
 class AppOverlayManager {
@@ -12,11 +13,10 @@ class AppOverlayManager {
 
   /// Show a temporary [OverlayEntry] and remove it after [duration].
   void showTemporaryEntry(
-    BuildContext context,
     OverlayEntry entry, {
     Duration duration = const Duration(seconds: 3),
   }) {
-    _insertEntry(context, entry);
+    _insertEntry(entry);
     debugPrint("👀 Displaying temporary overlay entry: ${entry.hashCode}");
 
     Future.delayed(duration, () => removeEntry(entry));
@@ -25,7 +25,7 @@ class AppOverlayManager {
   /// Show a persistent overlay and store it in the queue.
   void showPersistentEntry(BuildContext context, OverlayEntry entry) {
     _overlayQueue.addLast(entry);
-    _insertEntry(context, entry);
+    _insertEntry(entry);
   }
 
   /// Hide the most recent persistent overlay.
@@ -49,9 +49,9 @@ class AppOverlayManager {
   }
 
   /// Insert an overlay entry safely.
-  void _insertEntry(BuildContext context, OverlayEntry entry) {
+  void _insertEntry(OverlayEntry entry) {
     try {
-      Overlay.of(context).insert(entry);
+      rootNavigatorKey.currentState?.overlay?.insert(entry);
     } on Exception catch (e) {
       debugPrint("❌ Error inserting overlay: $e");
     }

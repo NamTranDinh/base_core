@@ -1,13 +1,45 @@
 import "package:flutter/material.dart";
 
-class AlertOverlay extends StatefulWidget {
-  const AlertOverlay({super.key});
+enum AlertType { success, warning, failure }
+
+class AppAlertOverlay extends StatelessWidget {
+  const AppAlertOverlay({required this.type, super.key, this.message});
+
+  factory AppAlertOverlay.success({String? message}) {
+    return AppAlertOverlay(message: message, type: AlertType.success);
+  }
+
+  factory AppAlertOverlay.warning({String? message}) {
+    return AppAlertOverlay(message: message, type: AlertType.warning);
+  }
+
+  factory AppAlertOverlay.failure({String? message}) {
+    return AppAlertOverlay(message: message, type: AlertType.failure);
+  }
+
+  final String? message;
+  final AlertType type;
 
   @override
-  State<AlertOverlay> createState() => _AlertOverlayState();
+  Widget build(BuildContext context) {
+    return _AlertOverlay(
+      type: type,
+      message: message,
+    );
+  }
 }
 
-class _AlertOverlayState extends State<AlertOverlay>
+class _AlertOverlay extends StatefulWidget {
+  const _AlertOverlay({required this.type, this.message});
+
+  final String? message;
+  final AlertType type;
+
+  @override
+  State<_AlertOverlay> createState() => _AlertOverlayState();
+}
+
+class _AlertOverlayState extends State<_AlertOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
@@ -56,15 +88,17 @@ class _AlertOverlayState extends State<AlertOverlay>
             opacity: _fadeAnimation,
             child: Material(
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
+                ),
                 width: MediaQuery.of(context).size.width,
-                color: Colors.red,
-                child: const SafeArea(
+                color: _getBackgroundColor(widget.type),
+                child: SafeArea(
                   bottom: false,
                   child: Text(
-                    'This is a message from the app',
-                    style: TextStyle(color: Colors.white),
+                    widget.message ?? 'This is a message from the app',
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -73,5 +107,13 @@ class _AlertOverlayState extends State<AlertOverlay>
         ),
       ],
     );
+  }
+
+  Color _getBackgroundColor(AlertType type) {
+    return switch (type) {
+      AlertType.success => Colors.green,
+      AlertType.warning => Colors.yellow,
+      AlertType.failure => Colors.red,
+    };
   }
 }

@@ -67,11 +67,12 @@ class AppRouter extends RootStackRouter {
           page: LoginPageRouter.page,
         ),
 
+        ///
         CustomSlideRoute(
+          path: '/${PageNotFoundRouter.name}',
           page: PageNotFoundRouter.page,
         ),
-
-        /// routes go here
+        RedirectRoute(path: '*', redirectTo: '/${PageNotFoundRouter.name}'),
       ];
 }
 

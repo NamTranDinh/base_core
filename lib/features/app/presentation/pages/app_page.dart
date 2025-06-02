@@ -7,8 +7,6 @@ import "package:base_core/features/app/presentation/bloc/app_cubit.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 class AppPage extends StatefulWidget {
   const AppPage({super.key});
 
@@ -47,7 +45,13 @@ class _AppPageState extends State<AppPage> {
             routerConfig: AppData.of(context).router.config(),
             debugShowCheckedModeBanner: false,
             builder: (BuildContext context, Widget? child) {
-              return child ?? const PageNotFound();
+              return Overlay(
+                initialEntries: [
+                  OverlayEntry(
+                    builder: (context) => child ?? const PageNotFound(),
+                  ),
+                ],
+              );
             },
           );
         },

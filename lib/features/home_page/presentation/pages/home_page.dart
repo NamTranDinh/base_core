@@ -20,9 +20,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             ElevatedButton(
-              onPressed: () {
-                context.showAppAlert();
-              },
+              onPressed: () {},
               child: Text(
                 "Show custom toast (App Alert)",
                 style: AppData(context).textStyle.s14,
