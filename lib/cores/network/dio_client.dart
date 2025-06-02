@@ -1,5 +1,5 @@
 import 'package:base_core/cores/constants/system.dart';
-import 'package:base_core/cores/network/dio/app_interceptor.dart';
+import 'package:base_core/cores/network/app_interceptor.dart';
 import 'package:base_core/flavors.dart';
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
@@ -19,12 +19,14 @@ class DioClient {
   late Dio dio;
 
   void _setInterceptorsByEnv(Dio dio) {
+    dio.interceptors.add(AppInterceptor());
+
     final flavor = dotenv.get('FLAVOR');
+
     if (flavor == Flavor.develop.name) {
       dio.interceptors.add(ChuckerDioInterceptor());
     } else if (flavor == Flavor.uat.name) {
       dio.interceptors.add(InterceptorsWrapper());
-    } else if (flavor == Flavor.product.name) {}
-    dio.interceptors.add(AppInterceptor());
+    }
   }
 }

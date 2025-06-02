@@ -1,7 +1,7 @@
-import 'package:base_core/blocs/app/app_cubit.dart';
 import 'package:base_core/cores/dependency_injection/di.dart';
 import 'package:base_core/cores/themes/app_color.dart';
 import 'package:base_core/cores/themes/app_text_theme.dart';
+import 'package:base_core/features/app/presentation/bloc/app_cubit.dart';
 import 'package:base_core/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

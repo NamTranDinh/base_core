@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
       final currentContext = context;
       Future.delayed(const Duration(seconds: 1), () async {
         if (currentContext.mounted) {
-          await currentContext.router.replaceAll([const HomePageRouter()]);
+          await currentContext.router.replaceAll([const LoginPageRouter()]);
         }
       });
     });

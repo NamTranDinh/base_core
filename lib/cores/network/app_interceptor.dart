@@ -1,4 +1,4 @@
-import 'package:base_core/cores/exception/dio_exception.dart';
+import 'package:base_core/cores/exception/app_dio_exception.dart';
 import 'package:dio/dio.dart';
 
 class AppInterceptor extends Interceptor {
